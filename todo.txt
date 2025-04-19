@@ -1,0 +1,12 @@
+MODULES:
+[] - auth
+[] - notifications
+[] - profile 
+[] - workspace 
+  [] - member management 
+[] - project 
+  [] - settings 
+[] - task 
+  [] - filters 
+  [] - comments 
+[] - media 
