@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,7 +9,186 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(uuid())
-  email String @unique
-  name  String
+  id               String    @id @default(uuid()) @map("user_id")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  email            String    @unique
+  displayName      String    @map("display_name")
+  password         String
+  avatar           String?
+  dateOfBirth      DateTime? @map("date_of_birth")
+  telegramUsername String?   @map("telegram_username")
+  about            String?
+
+  workbenches   WorkbenchMember[]
+  projects      ProjectMember[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model WorkbenchMember {
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workbench   Workbench     @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  role        WorkbenchRole @default(VISITOR)
+  userId      String        @map("user_id")
+  workbenchId String        @map("workbench_id")
+
+  @@id([userId, workbenchId])
+  @@index([role])
+  @@map("workbench_members")
+}
+
+model Workbench {
+  id          String   @id @default(uuid()) @map("workbench_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  title       String
+  description String
+  avatar      String
+
+  members  WorkbenchMember[]
+  projects Project[]
+
+  @@map("workbenches")
+}
+
+model ProjectMember {
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String    @map("user_id")
+  projectId String    @map("project_id")
+  tasks     Task[]
+  comments  Comment[]
+
+  @@id([userId, projectId])
+  @@map("project_members")
+}
+
+model ProjectTags {
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tagId     String  @map("tag_id")
+  projectId String  @map("project_id")
+  task      Task?   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String? @map("task_id")
+
+  @@id([tagId, projectId])
+  @@map("project_tags")
+}
+
+model Project {
+  id          String   @id @default(uuid()) @map("project_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  title       String
+  description String
+  avatar      String
+
+  status      ProjectStatus   @default(ACTIVE)
+  members     ProjectMember[]
+  workbench   Workbench?      @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  workbenchId String?         @map("workbench_id")
+  boards      Board[]
+  projectTags ProjectTags[]
+
+  @@map("projects")
+}
+
+model Board {
+  id        String   @id @default(uuid()) @map("board_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String?  @map("project_id")
+  columns   Column[]
+
+  @@map("boards")
+}
+
+model Column {
+  id        String   @id @default(uuid()) @map("column_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
+  color     String
+  position  Int
+  board     Board?   @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId   String?  @map("board_id")
+  tasks     Task[]
+
+  @@map("columns")
+}
+
+model Task {
+  id            String         @id @default(uuid()) @map("task_id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  column        Column?        @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  columnId      String?        @map("column_id")
+  executor      ProjectMember? @relation(fields: [executorId, projectId], references: [userId, projectId], onDelete: Cascade)
+  executorId    String?        @map("executor_id")
+  projectId     String?        @map("project_id")
+  date          DateTime?
+  priority      Priority?
+  type          TaskType
+  tags          ProjectTags[]
+  comments      Comment[]
+  notifications Notification[]
+
+  @@map("tasks")
+}
+
+model Comment {
+  id        String        @id @default(uuid()) @map("comment_id")
+  createdAt DateTime      @default(now()) @map("created_at")
+  content   String
+  task      Task?         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String?       @map("task_id")
+  author    ProjectMember @relation(fields: [authorId, projectId], references: [userId, projectId], onDelete: Cascade)
+  authorId  String        @map("author_id")
+  projectId String        @map("project_id")
+
+  @@map("comments")
+}
+
+model Tag {
+  id          String        @id @default(uuid()) @map("tag_id")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  projectTags ProjectTags[]
+
+  @@map("tags")
+}
+
+model Notification {
+  id        String   @id @default(uuid()) @map("notification_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  content   String
+  title     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id")
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String?  @map("task_id")
+
+  @@map("notifications")
+}
+
+enum WorkbenchRole {
+  VISITOR
+  ADMIN
+  WORKER
+}
+
+enum TaskType {
+  TEXT
+  LIST
+}
+
+enum ProjectStatus {
+  ACTIVE
+  INACTIVE
+  STOPPED
+  UNDER_DANGER
+}
+
+enum Priority {
+  FROZEN
+  LOW
+  MEDIUM
+  HIGH
 }

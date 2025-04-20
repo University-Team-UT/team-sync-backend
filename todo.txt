@@ -1,8 +1,11 @@
 MODULES:
-[] - auth
-[] - notifications
-[] - profile 
+[x] - auth
+[x] - profile 
 [] - workspace 
+  [] - create workspace
+  [] - update workspace
+  [] - delete workspace
+  [] - workspace roles
   [] - member management 
 [] - project 
   [] - settings 
@@ -10,3 +13,5 @@ MODULES:
   [] - filters 
   [] - comments 
 [] - media 
+[] - notifications
+

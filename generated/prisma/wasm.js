@@ -119,8 +119,99 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  createdAt: 'createdAt',
   email: 'email',
-  name: 'name'
+  displayName: 'displayName',
+  password: 'password',
+  avatar: 'avatar',
+  dateOfBirth: 'dateOfBirth',
+  telegramUsername: 'telegramUsername',
+  about: 'about'
+};
+
+exports.Prisma.WorkbenchMemberScalarFieldEnum = {
+  role: 'role',
+  userId: 'userId',
+  workbenchId: 'workbenchId'
+};
+
+exports.Prisma.WorkbenchScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  description: 'description',
+  avatar: 'avatar'
+};
+
+exports.Prisma.ProjectMemberScalarFieldEnum = {
+  userId: 'userId',
+  projectId: 'projectId'
+};
+
+exports.Prisma.ProjectTagsScalarFieldEnum = {
+  tagId: 'tagId',
+  projectId: 'projectId',
+  taskId: 'taskId'
+};
+
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  description: 'description',
+  avatar: 'avatar',
+  status: 'status',
+  workbenchId: 'workbenchId'
+};
+
+exports.Prisma.BoardScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  projectId: 'projectId'
+};
+
+exports.Prisma.ColumnScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  color: 'color',
+  position: 'position',
+  boardId: 'boardId'
+};
+
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  columnId: 'columnId',
+  executorId: 'executorId',
+  projectId: 'projectId',
+  date: 'date',
+  priority: 'priority',
+  type: 'type'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  content: 'content',
+  taskId: 'taskId',
+  authorId: 'authorId',
+  projectId: 'projectId'
+};
+
+exports.Prisma.TagScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  content: 'content',
+  title: 'title',
+  userId: 'userId',
+  taskId: 'taskId'
 };
 
 exports.Prisma.SortOrder = {
@@ -133,9 +224,48 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.WorkbenchRole = exports.$Enums.WorkbenchRole = {
+  VISITOR: 'VISITOR',
+  ADMIN: 'ADMIN',
+  WORKER: 'WORKER'
+};
+
+exports.ProjectStatus = exports.$Enums.ProjectStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  STOPPED: 'STOPPED',
+  UNDER_DANGER: 'UNDER_DANGER'
+};
+
+exports.Priority = exports.$Enums.Priority = {
+  FROZEN: 'FROZEN',
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+exports.TaskType = exports.$Enums.TaskType = {
+  TEXT: 'TEXT',
+  LIST: 'LIST'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  WorkbenchMember: 'WorkbenchMember',
+  Workbench: 'Workbench',
+  ProjectMember: 'ProjectMember',
+  ProjectTags: 'ProjectTags',
+  Project: 'Project',
+  Board: 'Board',
+  Column: 'Column',
+  Task: 'Task',
+  Comment: 'Comment',
+  Tag: 'Tag',
+  Notification: 'Notification'
 };
 
 /**
