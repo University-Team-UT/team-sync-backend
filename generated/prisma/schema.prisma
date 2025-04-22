@@ -27,8 +27,8 @@ model User {
 }
 
 model WorkbenchMember {
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  workbench   Workbench     @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id])
+  workbench   Workbench     @relation(fields: [workbenchId], references: [id])
   role        WorkbenchRole @default(VISITOR)
   userId      String        @map("user_id")
   workbenchId String        @map("workbench_id")
@@ -63,31 +63,17 @@ model ProjectMember {
   @@map("project_members")
 }
 
-model ProjectTags {
-  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  tagId     String  @map("tag_id")
-  projectId String  @map("project_id")
-  task      Task?   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  taskId    String? @map("task_id")
-
-  @@id([tagId, projectId])
-  @@map("project_tags")
-}
-
 model Project {
-  id          String   @id @default(uuid()) @map("project_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  title       String
-  description String
-  avatar      String?
+  id        String   @id @default(uuid()) @map("project_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
+  avatar    String?
 
   status      ProjectStatus   @default(ACTIVE)
   members     ProjectMember[]
   workbench   Workbench?      @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
   workbenchId String?         @map("workbench_id")
   boards      Board[]
-  projectTags ProjectTags[]
 
   @@map("projects")
 }
@@ -107,7 +93,7 @@ model Column {
   id        String   @id @default(uuid()) @map("column_id")
   createdAt DateTime @default(now()) @map("created_at")
   title     String
-  color     String
+  color     String?
   position  Int
   board     Board?   @relation(fields: [boardId], references: [id], onDelete: Cascade)
   boardId   String?  @map("board_id")
@@ -124,15 +110,26 @@ model Task {
   executor      ProjectMember? @relation(fields: [executorId, projectId], references: [userId, projectId], onDelete: Cascade)
   executorId    String?        @map("executor_id")
   projectId     String?        @map("project_id")
-  date          DateTime?
+  deadline      DateTime?
   priority      Priority?
-  type          TaskType
   position      Int
-  tags          ProjectTags[]
+  tags          Tag[]
   comments      Comment[]
+  status        TaskStatus     @default(TODO)
   notifications Notification[]
+  subtasks      Subtask[]
 
   @@map("tasks")
+}
+
+model Subtask {
+  id        String   @id @default(uuid()) @map("subtask_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId    String?  @map("task_id")
+
+  @@map("subtasks")
 }
 
 model Comment {
@@ -149,9 +146,11 @@ model Comment {
 }
 
 model Tag {
-  id          String        @id @default(uuid()) @map("tag_id")
-  createdAt   DateTime      @default(now()) @map("created_at")
-  projectTags ProjectTags[]
+  id        String   @id @default(uuid()) @map("tag_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  Task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?
+  title     String
 
   @@map("tags")
 }
@@ -166,6 +165,8 @@ model Notification {
   task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId    String?  @map("task_id")
 
+  type NotificationType @default(UNREAD)
+
   @@map("notifications")
 }
 
@@ -175,11 +176,6 @@ enum WorkbenchRole {
   WORKER
 }
 
-enum TaskType {
-  TEXT
-  LIST
-}
-
 enum ProjectStatus {
   ACTIVE
   INACTIVE
@@ -187,9 +183,21 @@ enum ProjectStatus {
   UNDER_DANGER
 }
 
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
 enum Priority {
   FROZEN
   LOW
   MEDIUM
   HIGH
+}
+
+enum NotificationType {
+  ARCHIVED
+  UNREAD
+  READ
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsArray, IsString } from 'class-validator'
+import { IsArray, IsEnum, IsString } from 'class-validator'
+import { WorkbenchRole } from 'generated/prisma'
 
 export class InviteUsersDto {
 	@ApiProperty()
@@ -10,4 +11,10 @@ export class InviteUsersDto {
 	@IsArray()
 	@IsString({ each: true })
 	emails: string[]
+}
+
+export class EditMemberDto {
+	@ApiProperty()
+	@IsEnum(WorkbenchRole)
+	role: WorkbenchRole
 }

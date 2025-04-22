@@ -148,17 +148,10 @@ exports.Prisma.ProjectMemberScalarFieldEnum = {
   projectId: 'projectId'
 };
 
-exports.Prisma.ProjectTagsScalarFieldEnum = {
-  tagId: 'tagId',
-  projectId: 'projectId',
-  taskId: 'taskId'
-};
-
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   title: 'title',
-  description: 'description',
   avatar: 'avatar',
   status: 'status',
   workbenchId: 'workbenchId'
@@ -186,10 +179,17 @@ exports.Prisma.TaskScalarFieldEnum = {
   columnId: 'columnId',
   executorId: 'executorId',
   projectId: 'projectId',
-  date: 'date',
+  deadline: 'deadline',
   priority: 'priority',
-  type: 'type',
-  position: 'position'
+  position: 'position',
+  status: 'status'
+};
+
+exports.Prisma.SubtaskScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  title: 'title',
+  taskId: 'taskId'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -203,7 +203,9 @@ exports.Prisma.CommentScalarFieldEnum = {
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  taskId: 'taskId',
+  title: 'title'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -212,7 +214,8 @@ exports.Prisma.NotificationScalarFieldEnum = {
   content: 'content',
   title: 'title',
   userId: 'userId',
-  taskId: 'taskId'
+  taskId: 'taskId',
+  type: 'type'
 };
 
 exports.Prisma.SortOrder = {
@@ -249,9 +252,16 @@ exports.Priority = exports.$Enums.Priority = {
   HIGH: 'HIGH'
 };
 
-exports.TaskType = exports.$Enums.TaskType = {
-  TEXT: 'TEXT',
-  LIST: 'LIST'
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  ARCHIVED: 'ARCHIVED',
+  UNREAD: 'UNREAD',
+  READ: 'READ'
 };
 
 exports.Prisma.ModelName = {
@@ -259,11 +269,11 @@ exports.Prisma.ModelName = {
   WorkbenchMember: 'WorkbenchMember',
   Workbench: 'Workbench',
   ProjectMember: 'ProjectMember',
-  ProjectTags: 'ProjectTags',
   Project: 'Project',
   Board: 'Board',
   Column: 'Column',
   Task: 'Task',
+  Subtask: 'Subtask',
   Comment: 'Comment',
   Tag: 'Tag',
   Notification: 'Notification'

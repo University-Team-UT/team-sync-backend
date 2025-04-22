@@ -1,14 +1,14 @@
 MODULES:
 [x] - auth
 [x] - profile 
-[] - workspace 
-  [] - create workspace
-  [] - update workspace
-  [] - delete workspace
-  [] - workspace roles
-  [] - member management 
+[x] - workspace 
+  [x] - create workspace
+  [x] - update workspace
+  [x] - delete workspace
+  [x] - workspace roles
+  [x] - member management 
 [] - project 
-  [] - settings 
+  [] - search 
 [] - task 
   [] - filters 
   [] - comments 

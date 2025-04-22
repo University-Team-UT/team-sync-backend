@@ -4,31 +4,31 @@ import { IsDate, IsEmail, IsOptional, IsString } from 'class-validator'
 export class UpdateAccountDto {
 	@IsString()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	displayName?: string
 
 	@IsEmail()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	email?: string
 
 	@IsString()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	about?: string
 
 	@IsDate()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	dateOfBirth?: string
 
 	@IsString()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	avatar?: string
 
 	@IsString()
 	@IsOptional()
-	@ApiProperty()
+	@ApiProperty({ required: false })
 	telegramUsername?: string
 }
