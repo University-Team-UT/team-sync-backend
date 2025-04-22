@@ -42,8 +42,8 @@ model Workbench {
   id          String   @id @default(uuid()) @map("workbench_id")
   createdAt   DateTime @default(now()) @map("created_at")
   title       String
-  description String
-  avatar      String
+  description String?
+  avatar      String?
 
   members  WorkbenchMember[]
   projects Project[]
@@ -80,7 +80,7 @@ model Project {
   createdAt   DateTime @default(now()) @map("created_at")
   title       String
   description String
-  avatar      String
+  avatar      String?
 
   status      ProjectStatus   @default(ACTIVE)
   members     ProjectMember[]
@@ -127,6 +127,7 @@ model Task {
   date          DateTime?
   priority      Priority?
   type          TaskType
+  position      Int
   tags          ProjectTags[]
   comments      Comment[]
   notifications Notification[]

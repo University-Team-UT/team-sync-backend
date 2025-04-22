@@ -4602,8 +4602,8 @@ export namespace Prisma {
     id: string
     createdAt: Date
     title: string
-    description: string
-    avatar: string
+    description: string | null
+    avatar: string | null
     _count: WorkbenchCountAggregateOutputType | null
     _min: WorkbenchMinAggregateOutputType | null
     _max: WorkbenchMaxAggregateOutputType | null
@@ -4677,8 +4677,8 @@ export namespace Prisma {
       id: string
       createdAt: Date
       title: string
-      description: string
-      avatar: string
+      description: string | null
+      avatar: string | null
     }, ExtArgs["result"]["workbench"]>
     composites: {}
   }
@@ -7865,7 +7865,7 @@ export namespace Prisma {
     createdAt: Date
     title: string
     description: string
-    avatar: string
+    avatar: string | null
     status: $Enums.ProjectStatus
     workbenchId: string | null
     _count: ProjectCountAggregateOutputType | null
@@ -7962,7 +7962,7 @@ export namespace Prisma {
       createdAt: Date
       title: string
       description: string
-      avatar: string
+      avatar: string | null
       status: $Enums.ProjectStatus
       workbenchId: string | null
     }, ExtArgs["result"]["project"]>
@@ -11158,8 +11158,18 @@ export namespace Prisma {
 
   export type AggregateTask = {
     _count: TaskCountAggregateOutputType | null
+    _avg: TaskAvgAggregateOutputType | null
+    _sum: TaskSumAggregateOutputType | null
     _min: TaskMinAggregateOutputType | null
     _max: TaskMaxAggregateOutputType | null
+  }
+
+  export type TaskAvgAggregateOutputType = {
+    position: number | null
+  }
+
+  export type TaskSumAggregateOutputType = {
+    position: number | null
   }
 
   export type TaskMinAggregateOutputType = {
@@ -11171,6 +11181,7 @@ export namespace Prisma {
     date: Date | null
     priority: $Enums.Priority | null
     type: $Enums.TaskType | null
+    position: number | null
   }
 
   export type TaskMaxAggregateOutputType = {
@@ -11182,6 +11193,7 @@ export namespace Prisma {
     date: Date | null
     priority: $Enums.Priority | null
     type: $Enums.TaskType | null
+    position: number | null
   }
 
   export type TaskCountAggregateOutputType = {
@@ -11193,9 +11205,18 @@ export namespace Prisma {
     date: number
     priority: number
     type: number
+    position: number
     _all: number
   }
 
+
+  export type TaskAvgAggregateInputType = {
+    position?: true
+  }
+
+  export type TaskSumAggregateInputType = {
+    position?: true
+  }
 
   export type TaskMinAggregateInputType = {
     id?: true
@@ -11206,6 +11227,7 @@ export namespace Prisma {
     date?: true
     priority?: true
     type?: true
+    position?: true
   }
 
   export type TaskMaxAggregateInputType = {
@@ -11217,6 +11239,7 @@ export namespace Prisma {
     date?: true
     priority?: true
     type?: true
+    position?: true
   }
 
   export type TaskCountAggregateInputType = {
@@ -11228,6 +11251,7 @@ export namespace Prisma {
     date?: true
     priority?: true
     type?: true
+    position?: true
     _all?: true
   }
 
@@ -11269,6 +11293,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TaskAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TaskSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TaskMinAggregateInputType
@@ -11299,6 +11335,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TaskCountAggregateInputType | true
+    _avg?: TaskAvgAggregateInputType
+    _sum?: TaskSumAggregateInputType
     _min?: TaskMinAggregateInputType
     _max?: TaskMaxAggregateInputType
   }
@@ -11312,7 +11350,10 @@ export namespace Prisma {
     date: Date | null
     priority: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     _count: TaskCountAggregateOutputType | null
+    _avg: TaskAvgAggregateOutputType | null
+    _sum: TaskSumAggregateOutputType | null
     _min: TaskMinAggregateOutputType | null
     _max: TaskMaxAggregateOutputType | null
   }
@@ -11340,6 +11381,7 @@ export namespace Prisma {
     date?: boolean
     priority?: boolean
     type?: boolean
+    position?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
     tags?: boolean | Task$tagsArgs<ExtArgs>
@@ -11357,6 +11399,7 @@ export namespace Prisma {
     date?: boolean
     priority?: boolean
     type?: boolean
+    position?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -11370,6 +11413,7 @@ export namespace Prisma {
     date?: boolean
     priority?: boolean
     type?: boolean
+    position?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -11383,9 +11427,10 @@ export namespace Prisma {
     date?: boolean
     priority?: boolean
     type?: boolean
+    position?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "columnId" | "executorId" | "projectId" | "date" | "priority" | "type", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "columnId" | "executorId" | "projectId" | "date" | "priority" | "type" | "position", ExtArgs["result"]["task"]>
   export type TaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
@@ -11421,6 +11466,7 @@ export namespace Prisma {
       date: Date | null
       priority: $Enums.Priority | null
       type: $Enums.TaskType
+      position: number
     }, ExtArgs["result"]["task"]>
     composites: {}
   }
@@ -11857,6 +11903,7 @@ export namespace Prisma {
     readonly date: FieldRef<"Task", 'DateTime'>
     readonly priority: FieldRef<"Task", 'Priority'>
     readonly type: FieldRef<"Task", 'TaskType'>
+    readonly position: FieldRef<"Task", 'Int'>
   }
     
 
@@ -15717,7 +15764,8 @@ export namespace Prisma {
     projectId: 'projectId',
     date: 'date',
     priority: 'priority',
-    type: 'type'
+    type: 'type',
+    position: 'position'
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
@@ -16036,8 +16084,8 @@ export namespace Prisma {
     id?: StringFilter<"Workbench"> | string
     createdAt?: DateTimeFilter<"Workbench"> | Date | string
     title?: StringFilter<"Workbench"> | string
-    description?: StringFilter<"Workbench"> | string
-    avatar?: StringFilter<"Workbench"> | string
+    description?: StringNullableFilter<"Workbench"> | string | null
+    avatar?: StringNullableFilter<"Workbench"> | string | null
     members?: WorkbenchMemberListRelationFilter
     projects?: ProjectListRelationFilter
   }
@@ -16046,8 +16094,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    avatar?: SortOrder
+    description?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     members?: WorkbenchMemberOrderByRelationAggregateInput
     projects?: ProjectOrderByRelationAggregateInput
   }
@@ -16059,8 +16107,8 @@ export namespace Prisma {
     NOT?: WorkbenchWhereInput | WorkbenchWhereInput[]
     createdAt?: DateTimeFilter<"Workbench"> | Date | string
     title?: StringFilter<"Workbench"> | string
-    description?: StringFilter<"Workbench"> | string
-    avatar?: StringFilter<"Workbench"> | string
+    description?: StringNullableFilter<"Workbench"> | string | null
+    avatar?: StringNullableFilter<"Workbench"> | string | null
     members?: WorkbenchMemberListRelationFilter
     projects?: ProjectListRelationFilter
   }, "id">
@@ -16069,8 +16117,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    avatar?: SortOrder
+    description?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     _count?: WorkbenchCountOrderByAggregateInput
     _max?: WorkbenchMaxOrderByAggregateInput
     _min?: WorkbenchMinOrderByAggregateInput
@@ -16083,8 +16131,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Workbench"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Workbench"> | Date | string
     title?: StringWithAggregatesFilter<"Workbench"> | string
-    description?: StringWithAggregatesFilter<"Workbench"> | string
-    avatar?: StringWithAggregatesFilter<"Workbench"> | string
+    description?: StringNullableWithAggregatesFilter<"Workbench"> | string | null
+    avatar?: StringNullableWithAggregatesFilter<"Workbench"> | string | null
   }
 
   export type ProjectMemberWhereInput = {
@@ -16197,7 +16245,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Project"> | Date | string
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
-    avatar?: StringFilter<"Project"> | string
+    avatar?: StringNullableFilter<"Project"> | string | null
     status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
     workbenchId?: StringNullableFilter<"Project"> | string | null
     members?: ProjectMemberListRelationFilter
@@ -16211,7 +16259,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    avatar?: SortOrder
+    avatar?: SortOrderInput | SortOrder
     status?: SortOrder
     workbenchId?: SortOrderInput | SortOrder
     members?: ProjectMemberOrderByRelationAggregateInput
@@ -16228,7 +16276,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Project"> | Date | string
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
-    avatar?: StringFilter<"Project"> | string
+    avatar?: StringNullableFilter<"Project"> | string | null
     status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
     workbenchId?: StringNullableFilter<"Project"> | string | null
     members?: ProjectMemberListRelationFilter
@@ -16242,7 +16290,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    avatar?: SortOrder
+    avatar?: SortOrderInput | SortOrder
     status?: SortOrder
     workbenchId?: SortOrderInput | SortOrder
     _count?: ProjectCountOrderByAggregateInput
@@ -16258,7 +16306,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     title?: StringWithAggregatesFilter<"Project"> | string
     description?: StringWithAggregatesFilter<"Project"> | string
-    avatar?: StringWithAggregatesFilter<"Project"> | string
+    avatar?: StringNullableWithAggregatesFilter<"Project"> | string | null
     status?: EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
     workbenchId?: StringNullableWithAggregatesFilter<"Project"> | string | null
   }
@@ -16393,6 +16441,7 @@ export namespace Prisma {
     date?: DateTimeNullableFilter<"Task"> | Date | string | null
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    position?: IntFilter<"Task"> | number
     column?: XOR<ColumnNullableScalarRelationFilter, ColumnWhereInput> | null
     executor?: XOR<ProjectMemberNullableScalarRelationFilter, ProjectMemberWhereInput> | null
     tags?: ProjectTagsListRelationFilter
@@ -16409,6 +16458,7 @@ export namespace Prisma {
     date?: SortOrderInput | SortOrder
     priority?: SortOrderInput | SortOrder
     type?: SortOrder
+    position?: SortOrder
     column?: ColumnOrderByWithRelationInput
     executor?: ProjectMemberOrderByWithRelationInput
     tags?: ProjectTagsOrderByRelationAggregateInput
@@ -16428,6 +16478,7 @@ export namespace Prisma {
     date?: DateTimeNullableFilter<"Task"> | Date | string | null
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    position?: IntFilter<"Task"> | number
     column?: XOR<ColumnNullableScalarRelationFilter, ColumnWhereInput> | null
     executor?: XOR<ProjectMemberNullableScalarRelationFilter, ProjectMemberWhereInput> | null
     tags?: ProjectTagsListRelationFilter
@@ -16444,9 +16495,12 @@ export namespace Prisma {
     date?: SortOrderInput | SortOrder
     priority?: SortOrderInput | SortOrder
     type?: SortOrder
+    position?: SortOrder
     _count?: TaskCountOrderByAggregateInput
+    _avg?: TaskAvgOrderByAggregateInput
     _max?: TaskMaxOrderByAggregateInput
     _min?: TaskMinOrderByAggregateInput
+    _sum?: TaskSumOrderByAggregateInput
   }
 
   export type TaskScalarWhereWithAggregatesInput = {
@@ -16461,6 +16515,7 @@ export namespace Prisma {
     date?: DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
     priority?: EnumPriorityNullableWithAggregatesFilter<"Task"> | $Enums.Priority | null
     type?: EnumTaskTypeWithAggregatesFilter<"Task"> | $Enums.TaskType
+    position?: IntWithAggregatesFilter<"Task"> | number
   }
 
   export type CommentWhereInput = {
@@ -16769,8 +16824,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     members?: WorkbenchMemberCreateNestedManyWithoutWorkbenchInput
     projects?: ProjectCreateNestedManyWithoutWorkbenchInput
   }
@@ -16779,8 +16834,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     members?: WorkbenchMemberUncheckedCreateNestedManyWithoutWorkbenchInput
     projects?: ProjectUncheckedCreateNestedManyWithoutWorkbenchInput
   }
@@ -16789,8 +16844,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     members?: WorkbenchMemberUpdateManyWithoutWorkbenchNestedInput
     projects?: ProjectUpdateManyWithoutWorkbenchNestedInput
   }
@@ -16799,8 +16854,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     members?: WorkbenchMemberUncheckedUpdateManyWithoutWorkbenchNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutWorkbenchNestedInput
   }
@@ -16809,24 +16864,24 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
   }
 
   export type WorkbenchUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkbenchUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProjectMemberCreateInput = {
@@ -16916,7 +16971,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
     workbench?: WorkbenchCreateNestedOneWithoutProjectsInput
@@ -16929,7 +16984,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbenchId?: string | null
     members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
@@ -16942,7 +16997,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
     workbench?: WorkbenchUpdateOneWithoutProjectsNestedInput
@@ -16955,7 +17010,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbenchId?: NullableStringFieldUpdateOperationsInput | string | null
     members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
@@ -16968,7 +17023,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbenchId?: string | null
   }
@@ -16978,7 +17033,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   }
 
@@ -16987,7 +17042,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbenchId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -17116,6 +17171,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
     tags?: ProjectTagsCreateNestedManyWithoutTaskInput
@@ -17132,6 +17188,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     tags?: ProjectTagsUncheckedCreateNestedManyWithoutTaskInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
@@ -17143,6 +17200,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
     tags?: ProjectTagsUpdateManyWithoutTaskNestedInput
@@ -17159,6 +17217,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     tags?: ProjectTagsUncheckedUpdateManyWithoutTaskNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
@@ -17173,6 +17232,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
   }
 
   export type TaskUpdateManyMutationInput = {
@@ -17181,6 +17241,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
   }
 
   export type TaskUncheckedUpdateManyInput = {
@@ -17192,6 +17253,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentCreateInput = {
@@ -17909,6 +17971,11 @@ export namespace Prisma {
     date?: SortOrder
     priority?: SortOrder
     type?: SortOrder
+    position?: SortOrder
+  }
+
+  export type TaskAvgOrderByAggregateInput = {
+    position?: SortOrder
   }
 
   export type TaskMaxOrderByAggregateInput = {
@@ -17920,6 +17987,7 @@ export namespace Prisma {
     date?: SortOrder
     priority?: SortOrder
     type?: SortOrder
+    position?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
@@ -17931,6 +17999,11 @@ export namespace Prisma {
     date?: SortOrder
     priority?: SortOrder
     type?: SortOrder
+    position?: SortOrder
+  }
+
+  export type TaskSumOrderByAggregateInput = {
+    position?: SortOrder
   }
 
   export type EnumPriorityNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19390,8 +19463,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     projects?: ProjectCreateNestedManyWithoutWorkbenchInput
   }
 
@@ -19399,8 +19472,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutWorkbenchInput
   }
 
@@ -19463,8 +19536,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutWorkbenchNestedInput
   }
 
@@ -19472,8 +19545,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutWorkbenchNestedInput
   }
 
@@ -19502,7 +19575,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
     boards?: BoardCreateNestedManyWithoutProjectInput
@@ -19514,7 +19587,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
     boards?: BoardUncheckedCreateNestedManyWithoutProjectInput
@@ -19571,7 +19644,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Project"> | Date | string
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
-    avatar?: StringFilter<"Project"> | string
+    avatar?: StringNullableFilter<"Project"> | string | null
     status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
     workbenchId?: StringNullableFilter<"Project"> | string | null
   }
@@ -19614,7 +19687,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbench?: WorkbenchCreateNestedOneWithoutProjectsInput
     boards?: BoardCreateNestedManyWithoutProjectInput
@@ -19626,7 +19699,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbenchId?: string | null
     boards?: BoardUncheckedCreateNestedManyWithoutProjectInput
@@ -19644,6 +19717,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     column?: ColumnCreateNestedOneWithoutTasksInput
     tags?: ProjectTagsCreateNestedManyWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
@@ -19657,6 +19731,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     tags?: ProjectTagsUncheckedCreateNestedManyWithoutTaskInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
@@ -19751,7 +19826,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbench?: WorkbenchUpdateOneWithoutProjectsNestedInput
     boards?: BoardUpdateManyWithoutProjectNestedInput
@@ -19763,7 +19838,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbenchId?: NullableStringFieldUpdateOperationsInput | string | null
     boards?: BoardUncheckedUpdateManyWithoutProjectNestedInput
@@ -19798,6 +19873,7 @@ export namespace Prisma {
     date?: DateTimeNullableFilter<"Task"> | Date | string | null
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    position?: IntFilter<"Task"> | number
   }
 
   export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -19848,7 +19924,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
     workbench?: WorkbenchCreateNestedOneWithoutProjectsInput
@@ -19860,7 +19936,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbenchId?: string | null
     members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
@@ -19878,6 +19954,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
@@ -19893,6 +19970,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -19939,7 +20017,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
     workbench?: WorkbenchUpdateOneWithoutProjectsNestedInput
@@ -19951,7 +20029,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbenchId?: NullableStringFieldUpdateOperationsInput | string | null
     members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
@@ -19975,6 +20053,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
@@ -19990,6 +20069,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -20020,8 +20100,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     members?: WorkbenchMemberCreateNestedManyWithoutWorkbenchInput
   }
 
@@ -20029,8 +20109,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    description: string
-    avatar: string
+    description?: string | null
+    avatar?: string | null
     members?: WorkbenchMemberUncheckedCreateNestedManyWithoutWorkbenchInput
   }
 
@@ -20114,8 +20194,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     members?: WorkbenchMemberUpdateManyWithoutWorkbenchNestedInput
   }
 
@@ -20123,8 +20203,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     members?: WorkbenchMemberUncheckedUpdateManyWithoutWorkbenchNestedInput
   }
 
@@ -20184,7 +20264,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
     workbench?: WorkbenchCreateNestedOneWithoutProjectsInput
@@ -20196,7 +20276,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
     workbenchId?: string | null
     members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
@@ -20252,7 +20332,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
     workbench?: WorkbenchUpdateOneWithoutProjectsNestedInput
@@ -20264,7 +20344,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     workbenchId?: NullableStringFieldUpdateOperationsInput | string | null
     members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
@@ -20324,6 +20404,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
     tags?: ProjectTagsCreateNestedManyWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
@@ -20338,6 +20419,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     tags?: ProjectTagsUncheckedCreateNestedManyWithoutTaskInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
@@ -20611,6 +20693,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
     tags?: ProjectTagsCreateNestedManyWithoutTaskInput
@@ -20626,6 +20709,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     tags?: ProjectTagsUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -20669,6 +20753,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
     tags?: ProjectTagsUpdateManyWithoutTaskNestedInput
@@ -20684,6 +20769,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     tags?: ProjectTagsUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -20786,6 +20872,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
     tags?: ProjectTagsCreateNestedManyWithoutTaskInput
@@ -20801,6 +20888,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
     tags?: ProjectTagsUncheckedCreateNestedManyWithoutTaskInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -20866,6 +20954,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
     tags?: ProjectTagsUpdateManyWithoutTaskNestedInput
@@ -20881,6 +20970,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     tags?: ProjectTagsUncheckedUpdateManyWithoutTaskNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -20967,7 +21057,7 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     description: string
-    avatar: string
+    avatar?: string | null
     status?: $Enums.ProjectStatus
   }
 
@@ -20991,7 +21081,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
     boards?: BoardUpdateManyWithoutProjectNestedInput
@@ -21003,7 +21093,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
     members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
     boards?: BoardUncheckedUpdateManyWithoutProjectNestedInput
@@ -21015,7 +21105,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   }
 
@@ -21026,6 +21116,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
   }
 
   export type CommentCreateManyAuthorInput = {
@@ -21041,6 +21132,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     column?: ColumnUpdateOneWithoutTasksNestedInput
     tags?: ProjectTagsUpdateManyWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
@@ -21054,6 +21146,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     tags?: ProjectTagsUncheckedUpdateManyWithoutTaskNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
@@ -21066,6 +21159,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentUpdateWithoutAuthorInput = {
@@ -21197,6 +21291,7 @@ export namespace Prisma {
     date?: Date | string | null
     priority?: $Enums.Priority | null
     type: $Enums.TaskType
+    position: number
   }
 
   export type TaskUpdateWithoutColumnInput = {
@@ -21205,6 +21300,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
     tags?: ProjectTagsUpdateManyWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
@@ -21219,6 +21315,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
     tags?: ProjectTagsUncheckedUpdateManyWithoutTaskNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
@@ -21232,6 +21329,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    position?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProjectTagsCreateManyTaskInput = {

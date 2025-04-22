@@ -15,3 +15,4 @@ MODULES:
 [] - media 
 [] - notifications
 
+[] - notification about invite in workbench

@@ -188,7 +188,8 @@ exports.Prisma.TaskScalarFieldEnum = {
   projectId: 'projectId',
   date: 'date',
   priority: 'priority',
-  type: 'type'
+  type: 'type',
+  position: 'position'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
