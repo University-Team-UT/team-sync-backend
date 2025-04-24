@@ -1,8 +1,60 @@
-import { Controller } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Patch,
+	Post
+} from '@nestjs/common'
+import { Auth } from 'src/shared/decorators/auth.decorator'
 
 import { BoardService } from './board.service'
+import { BOARD_ROUTES } from './config/board.routes'
 
-@Controller('board')
+@Controller(BOARD_ROUTES.INDEX)
 export class BoardController {
 	constructor(private readonly boardService: BoardService) {}
+
+	@Get(BOARD_ROUTES.GET_BOARDS)
+	@Auth()
+	@HttpCode(200)
+	async getBoards(@Param('projectId') projectId: string) {
+		return this.boardService.getBoards(projectId)
+	}
+
+	@Get(BOARD_ROUTES.GET_BOARD)
+	@Auth()
+	@HttpCode(200)
+	async getBoard(@Param('boardId') boardId: string) {
+		return this.boardService.getBoard(boardId)
+	}
+
+	@Post(BOARD_ROUTES.CREATE_BOARD)
+	@Auth()
+	@HttpCode(200)
+	async createBoard(
+		@Param('projectId') projectId: string,
+		@Body() title: string
+	) {
+		return this.boardService.createBoard(projectId, title)
+	}
+
+	@Patch(BOARD_ROUTES.UPDATE_BOARD)
+	@Auth()
+	@HttpCode(200)
+	async updateBoard(
+		@Param('projectId') projectId: string,
+		@Body() title: string
+	) {
+		return this.boardService.updateBoard(projectId, title)
+	}
+
+	@Delete(BOARD_ROUTES.DELETE_BOARD)
+	@Auth()
+	@HttpCode(200)
+	async deleteBoard(@Param('boardId') boardId: string) {
+		return this.boardService.deleteBoard(boardId)
+	}
 }

@@ -2227,6 +2227,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type TagCountOutputType
+   */
+
+  export type TagCountOutputType = {
+    tasks: number
+    Task: number
+  }
+
+  export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tasks?: boolean | TagCountOutputTypeCountTasksArgs
+    Task?: boolean | TagCountOutputTypeCountTaskArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TagCountOutputType
+     */
+    select?: TagCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskWhereInput
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -10057,6 +10097,7 @@ export namespace Prisma {
     priority: $Enums.Priority | null
     position: number | null
     status: $Enums.TaskStatus | null
+    tagId: string | null
   }
 
   export type TaskMaxAggregateOutputType = {
@@ -10069,6 +10110,7 @@ export namespace Prisma {
     priority: $Enums.Priority | null
     position: number | null
     status: $Enums.TaskStatus | null
+    tagId: string | null
   }
 
   export type TaskCountAggregateOutputType = {
@@ -10081,6 +10123,7 @@ export namespace Prisma {
     priority: number
     position: number
     status: number
+    tagId: number
     _all: number
   }
 
@@ -10103,6 +10146,7 @@ export namespace Prisma {
     priority?: true
     position?: true
     status?: true
+    tagId?: true
   }
 
   export type TaskMaxAggregateInputType = {
@@ -10115,6 +10159,7 @@ export namespace Prisma {
     priority?: true
     position?: true
     status?: true
+    tagId?: true
   }
 
   export type TaskCountAggregateInputType = {
@@ -10127,6 +10172,7 @@ export namespace Prisma {
     priority?: true
     position?: true
     status?: true
+    tagId?: true
     _all?: true
   }
 
@@ -10226,6 +10272,7 @@ export namespace Prisma {
     priority: $Enums.Priority | null
     position: number
     status: $Enums.TaskStatus
+    tagId: string | null
     _count: TaskCountAggregateOutputType | null
     _avg: TaskAvgAggregateOutputType | null
     _sum: TaskSumAggregateOutputType | null
@@ -10257,12 +10304,14 @@ export namespace Prisma {
     priority?: boolean
     position?: boolean
     status?: boolean
+    tagId?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
     tags?: boolean | Task$tagsArgs<ExtArgs>
     comments?: boolean | Task$commentsArgs<ExtArgs>
     notifications?: boolean | Task$notificationsArgs<ExtArgs>
     subtasks?: boolean | Task$subtasksArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
 
@@ -10276,8 +10325,10 @@ export namespace Prisma {
     priority?: boolean
     position?: boolean
     status?: boolean
+    tagId?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
 
   export type TaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10290,8 +10341,10 @@ export namespace Prisma {
     priority?: boolean
     position?: boolean
     status?: boolean
+    tagId?: boolean
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
 
   export type TaskSelectScalar = {
@@ -10304,9 +10357,10 @@ export namespace Prisma {
     priority?: boolean
     position?: boolean
     status?: boolean
+    tagId?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "columnId" | "executorId" | "projectId" | "deadline" | "priority" | "position" | "status", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "columnId" | "executorId" | "projectId" | "deadline" | "priority" | "position" | "status" | "tagId", ExtArgs["result"]["task"]>
   export type TaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
@@ -10314,15 +10368,18 @@ export namespace Prisma {
     comments?: boolean | Task$commentsArgs<ExtArgs>
     notifications?: boolean | Task$notificationsArgs<ExtArgs>
     subtasks?: boolean | Task$subtasksArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
   }
   export type TaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     column?: boolean | Task$columnArgs<ExtArgs>
     executor?: boolean | Task$executorArgs<ExtArgs>
+    Tag?: boolean | Task$TagArgs<ExtArgs>
   }
 
   export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10334,6 +10391,7 @@ export namespace Prisma {
       comments: Prisma.$CommentPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       subtasks: Prisma.$SubtaskPayload<ExtArgs>[]
+      Tag: Prisma.$TagPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10345,6 +10403,7 @@ export namespace Prisma {
       priority: $Enums.Priority | null
       position: number
       status: $Enums.TaskStatus
+      tagId: string | null
     }, ExtArgs["result"]["task"]>
     composites: {}
   }
@@ -10745,6 +10804,7 @@ export namespace Prisma {
     comments<T extends Task$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Task$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends Task$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Task$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subtasks<T extends Task$subtasksArgs<ExtArgs> = {}>(args?: Subset<T, Task$subtasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubtaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Tag<T extends Task$TagArgs<ExtArgs> = {}>(args?: Subset<T, Task$TagArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10783,6 +10843,7 @@ export namespace Prisma {
     readonly priority: FieldRef<"Task", 'Priority'>
     readonly position: FieldRef<"Task", 'Int'>
     readonly status: FieldRef<"Task", 'TaskStatus'>
+    readonly tagId: FieldRef<"Task", 'String'>
   }
     
 
@@ -11310,6 +11371,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SubtaskScalarFieldEnum | SubtaskScalarFieldEnum[]
+  }
+
+  /**
+   * Task.Tag
+   */
+  export type Task$TagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    where?: TagWhereInput
   }
 
   /**
@@ -13506,22 +13586,22 @@ export namespace Prisma {
   export type TagMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    taskId: string | null
     title: string | null
+    color: string | null
   }
 
   export type TagMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    taskId: string | null
     title: string | null
+    color: string | null
   }
 
   export type TagCountAggregateOutputType = {
     id: number
     createdAt: number
-    taskId: number
     title: number
+    color: number
     _all: number
   }
 
@@ -13529,22 +13609,22 @@ export namespace Prisma {
   export type TagMinAggregateInputType = {
     id?: true
     createdAt?: true
-    taskId?: true
     title?: true
+    color?: true
   }
 
   export type TagMaxAggregateInputType = {
     id?: true
     createdAt?: true
-    taskId?: true
     title?: true
+    color?: true
   }
 
   export type TagCountAggregateInputType = {
     id?: true
     createdAt?: true
-    taskId?: true
     title?: true
+    color?: true
     _all?: true
   }
 
@@ -13623,8 +13703,8 @@ export namespace Prisma {
   export type TagGroupByOutputType = {
     id: string
     createdAt: Date
-    taskId: string | null
     title: string
+    color: string | null
     _count: TagCountAggregateOutputType | null
     _min: TagMinAggregateOutputType | null
     _max: TagMaxAggregateOutputType | null
@@ -13647,55 +13727,54 @@ export namespace Prisma {
   export type TagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    taskId?: boolean
     title?: boolean
+    color?: boolean
+    tasks?: boolean | Tag$tasksArgs<ExtArgs>
     Task?: boolean | Tag$TaskArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tag"]>
 
   export type TagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    taskId?: boolean
     title?: boolean
-    Task?: boolean | Tag$TaskArgs<ExtArgs>
+    color?: boolean
   }, ExtArgs["result"]["tag"]>
 
   export type TagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    taskId?: boolean
     title?: boolean
-    Task?: boolean | Tag$TaskArgs<ExtArgs>
+    color?: boolean
   }, ExtArgs["result"]["tag"]>
 
   export type TagSelectScalar = {
     id?: boolean
     createdAt?: boolean
-    taskId?: boolean
     title?: boolean
+    color?: boolean
   }
 
-  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "taskId" | "title", ExtArgs["result"]["tag"]>
+  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "title" | "color", ExtArgs["result"]["tag"]>
   export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tasks?: boolean | Tag$tasksArgs<ExtArgs>
     Task?: boolean | Tag$TaskArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Task?: boolean | Tag$TaskArgs<ExtArgs>
-  }
-  export type TagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Task?: boolean | Tag$TaskArgs<ExtArgs>
-  }
+  export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tag"
     objects: {
-      Task: Prisma.$TaskPayload<ExtArgs> | null
+      tasks: Prisma.$TaskPayload<ExtArgs>[]
+      Task: Prisma.$TaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
-      taskId: string | null
       title: string
+      color: string | null
     }, ExtArgs["result"]["tag"]>
     composites: {}
   }
@@ -14090,7 +14169,8 @@ export namespace Prisma {
    */
   export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Task<T extends Tag$TaskArgs<ExtArgs> = {}>(args?: Subset<T, Tag$TaskArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tasks<T extends Tag$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Tag$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Task<T extends Tag$TaskArgs<ExtArgs> = {}>(args?: Subset<T, Tag$TaskArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14122,8 +14202,8 @@ export namespace Prisma {
   interface TagFieldRefs {
     readonly id: FieldRef<"Tag", 'String'>
     readonly createdAt: FieldRef<"Tag", 'DateTime'>
-    readonly taskId: FieldRef<"Tag", 'String'>
     readonly title: FieldRef<"Tag", 'String'>
+    readonly color: FieldRef<"Tag", 'String'>
   }
     
 
@@ -14373,10 +14453,6 @@ export namespace Prisma {
      */
     data: TagCreateManyInput | TagCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TagIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14447,10 +14523,6 @@ export namespace Prisma {
      * Limit how many Tags to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TagIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14520,6 +14592,30 @@ export namespace Prisma {
   }
 
   /**
+   * Tag.tasks
+   */
+  export type Tag$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    where?: TaskWhereInput
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    cursor?: TaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
+  }
+
+  /**
    * Tag.Task
    */
   export type Tag$TaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14536,6 +14632,11 @@ export namespace Prisma {
      */
     include?: TaskInclude<ExtArgs> | null
     where?: TaskWhereInput
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    cursor?: TaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
   }
 
   /**
@@ -15768,7 +15869,8 @@ export namespace Prisma {
     deadline: 'deadline',
     priority: 'priority',
     position: 'position',
-    status: 'status'
+    status: 'status',
+    tagId: 'tagId'
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
@@ -15799,8 +15901,8 @@ export namespace Prisma {
   export const TagScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    taskId: 'taskId',
-    title: 'title'
+    title: 'title',
+    color: 'color'
   };
 
   export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
@@ -16412,12 +16514,14 @@ export namespace Prisma {
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     position?: IntFilter<"Task"> | number
     status?: EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
+    tagId?: StringNullableFilter<"Task"> | string | null
     column?: XOR<ColumnNullableScalarRelationFilter, ColumnWhereInput> | null
     executor?: XOR<ProjectMemberNullableScalarRelationFilter, ProjectMemberWhereInput> | null
     tags?: TagListRelationFilter
     comments?: CommentListRelationFilter
     notifications?: NotificationListRelationFilter
     subtasks?: SubtaskListRelationFilter
+    Tag?: XOR<TagNullableScalarRelationFilter, TagWhereInput> | null
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -16430,12 +16534,14 @@ export namespace Prisma {
     priority?: SortOrderInput | SortOrder
     position?: SortOrder
     status?: SortOrder
+    tagId?: SortOrderInput | SortOrder
     column?: ColumnOrderByWithRelationInput
     executor?: ProjectMemberOrderByWithRelationInput
     tags?: TagOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     subtasks?: SubtaskOrderByRelationAggregateInput
+    Tag?: TagOrderByWithRelationInput
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -16451,12 +16557,14 @@ export namespace Prisma {
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     position?: IntFilter<"Task"> | number
     status?: EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
+    tagId?: StringNullableFilter<"Task"> | string | null
     column?: XOR<ColumnNullableScalarRelationFilter, ColumnWhereInput> | null
     executor?: XOR<ProjectMemberNullableScalarRelationFilter, ProjectMemberWhereInput> | null
     tags?: TagListRelationFilter
     comments?: CommentListRelationFilter
     notifications?: NotificationListRelationFilter
     subtasks?: SubtaskListRelationFilter
+    Tag?: XOR<TagNullableScalarRelationFilter, TagWhereInput> | null
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
@@ -16469,6 +16577,7 @@ export namespace Prisma {
     priority?: SortOrderInput | SortOrder
     position?: SortOrder
     status?: SortOrder
+    tagId?: SortOrderInput | SortOrder
     _count?: TaskCountOrderByAggregateInput
     _avg?: TaskAvgOrderByAggregateInput
     _max?: TaskMaxOrderByAggregateInput
@@ -16489,6 +16598,7 @@ export namespace Prisma {
     priority?: EnumPriorityNullableWithAggregatesFilter<"Task"> | $Enums.Priority | null
     position?: IntWithAggregatesFilter<"Task"> | number
     status?: EnumTaskStatusWithAggregatesFilter<"Task"> | $Enums.TaskStatus
+    tagId?: StringNullableWithAggregatesFilter<"Task"> | string | null
   }
 
   export type SubtaskWhereInput = {
@@ -16610,17 +16720,19 @@ export namespace Prisma {
     NOT?: TagWhereInput | TagWhereInput[]
     id?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
-    taskId?: StringNullableFilter<"Tag"> | string | null
     title?: StringFilter<"Tag"> | string
-    Task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
+    color?: StringNullableFilter<"Tag"> | string | null
+    tasks?: TaskListRelationFilter
+    Task?: TaskListRelationFilter
   }
 
   export type TagOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    taskId?: SortOrderInput | SortOrder
     title?: SortOrder
-    Task?: TaskOrderByWithRelationInput
+    color?: SortOrderInput | SortOrder
+    tasks?: TaskOrderByRelationAggregateInput
+    Task?: TaskOrderByRelationAggregateInput
   }
 
   export type TagWhereUniqueInput = Prisma.AtLeast<{
@@ -16629,16 +16741,17 @@ export namespace Prisma {
     OR?: TagWhereInput[]
     NOT?: TagWhereInput | TagWhereInput[]
     createdAt?: DateTimeFilter<"Tag"> | Date | string
-    taskId?: StringNullableFilter<"Tag"> | string | null
     title?: StringFilter<"Tag"> | string
-    Task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
+    color?: StringNullableFilter<"Tag"> | string | null
+    tasks?: TaskListRelationFilter
+    Task?: TaskListRelationFilter
   }, "id">
 
   export type TagOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    taskId?: SortOrderInput | SortOrder
     title?: SortOrder
+    color?: SortOrderInput | SortOrder
     _count?: TagCountOrderByAggregateInput
     _max?: TagMaxOrderByAggregateInput
     _min?: TagMinOrderByAggregateInput
@@ -16650,8 +16763,8 @@ export namespace Prisma {
     NOT?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Tag"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Tag"> | Date | string
-    taskId?: StringNullableWithAggregatesFilter<"Tag"> | string | null
     title?: StringWithAggregatesFilter<"Tag"> | string
+    color?: StringNullableWithAggregatesFilter<"Tag"> | string | null
   }
 
   export type NotificationWhereInput = {
@@ -17161,10 +17274,11 @@ export namespace Prisma {
     status?: $Enums.TaskStatus
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateInput = {
@@ -17177,7 +17291,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
@@ -17192,10 +17307,11 @@ export namespace Prisma {
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateInput = {
@@ -17208,7 +17324,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
@@ -17224,6 +17341,7 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
+    tagId?: string | null
   }
 
   export type TaskUpdateManyMutationInput = {
@@ -17245,6 +17363,7 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SubtaskCreateInput = {
@@ -17357,48 +17476,57 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
-    Task?: TaskCreateNestedOneWithoutTagsInput
+    color?: string | null
+    tasks?: TaskCreateNestedManyWithoutTagsInput
+    Task?: TaskCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
-    taskId?: string | null
     title: string
+    color?: string | null
+    tasks?: TaskUncheckedCreateNestedManyWithoutTagsInput
+    Task?: TaskUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
-    Task?: TaskUpdateOneWithoutTagsNestedInput
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    tasks?: TaskUpdateManyWithoutTagsNestedInput
+    Task?: TaskUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    taskId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    tasks?: TaskUncheckedUpdateManyWithoutTagsNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type TagCreateManyInput = {
     id?: string
     createdAt?: Date | string
-    taskId?: string | null
     title: string
+    color?: string | null
   }
 
   export type TagUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TagUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    taskId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationCreateInput = {
@@ -17983,6 +18111,11 @@ export namespace Prisma {
     none?: SubtaskWhereInput
   }
 
+  export type TagNullableScalarRelationFilter = {
+    is?: TagWhereInput | null
+    isNot?: TagWhereInput | null
+  }
+
   export type TagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -18001,6 +18134,7 @@ export namespace Prisma {
     priority?: SortOrder
     position?: SortOrder
     status?: SortOrder
+    tagId?: SortOrder
   }
 
   export type TaskAvgOrderByAggregateInput = {
@@ -18017,6 +18151,7 @@ export namespace Prisma {
     priority?: SortOrder
     position?: SortOrder
     status?: SortOrder
+    tagId?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
@@ -18029,6 +18164,7 @@ export namespace Prisma {
     priority?: SortOrder
     position?: SortOrder
     status?: SortOrder
+    tagId?: SortOrder
   }
 
   export type TaskSumOrderByAggregateInput = {
@@ -18116,22 +18252,22 @@ export namespace Prisma {
   export type TagCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    taskId?: SortOrder
     title?: SortOrder
+    color?: SortOrder
   }
 
   export type TagMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    taskId?: SortOrder
     title?: SortOrder
+    color?: SortOrder
   }
 
   export type TagMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    taskId?: SortOrder
     title?: SortOrder
+    color?: SortOrder
   }
 
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
@@ -18791,10 +18927,9 @@ export namespace Prisma {
     connect?: ProjectMemberWhereUniqueInput
   }
 
-  export type TagCreateNestedManyWithoutTaskInput = {
-    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput> | TagCreateWithoutTaskInput[] | TagUncheckedCreateWithoutTaskInput[]
-    connectOrCreate?: TagCreateOrConnectWithoutTaskInput | TagCreateOrConnectWithoutTaskInput[]
-    createMany?: TagCreateManyTaskInputEnvelope
+  export type TagCreateNestedManyWithoutTasksInput = {
+    create?: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput> | TagCreateWithoutTasksInput[] | TagUncheckedCreateWithoutTasksInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutTasksInput | TagCreateOrConnectWithoutTasksInput[]
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
   }
 
@@ -18819,10 +18954,15 @@ export namespace Prisma {
     connect?: SubtaskWhereUniqueInput | SubtaskWhereUniqueInput[]
   }
 
-  export type TagUncheckedCreateNestedManyWithoutTaskInput = {
-    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput> | TagCreateWithoutTaskInput[] | TagUncheckedCreateWithoutTaskInput[]
-    connectOrCreate?: TagCreateOrConnectWithoutTaskInput | TagCreateOrConnectWithoutTaskInput[]
-    createMany?: TagCreateManyTaskInputEnvelope
+  export type TagCreateNestedOneWithoutTaskInput = {
+    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TagCreateOrConnectWithoutTaskInput
+    connect?: TagWhereUniqueInput
+  }
+
+  export type TagUncheckedCreateNestedManyWithoutTasksInput = {
+    create?: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput> | TagCreateWithoutTasksInput[] | TagUncheckedCreateWithoutTasksInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutTasksInput | TagCreateOrConnectWithoutTasksInput[]
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
   }
 
@@ -18875,17 +19015,16 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectMemberUpdateToOneWithWhereWithoutTasksInput, ProjectMemberUpdateWithoutTasksInput>, ProjectMemberUncheckedUpdateWithoutTasksInput>
   }
 
-  export type TagUpdateManyWithoutTaskNestedInput = {
-    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput> | TagCreateWithoutTaskInput[] | TagUncheckedCreateWithoutTaskInput[]
-    connectOrCreate?: TagCreateOrConnectWithoutTaskInput | TagCreateOrConnectWithoutTaskInput[]
-    upsert?: TagUpsertWithWhereUniqueWithoutTaskInput | TagUpsertWithWhereUniqueWithoutTaskInput[]
-    createMany?: TagCreateManyTaskInputEnvelope
+  export type TagUpdateManyWithoutTasksNestedInput = {
+    create?: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput> | TagCreateWithoutTasksInput[] | TagUncheckedCreateWithoutTasksInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutTasksInput | TagCreateOrConnectWithoutTasksInput[]
+    upsert?: TagUpsertWithWhereUniqueWithoutTasksInput | TagUpsertWithWhereUniqueWithoutTasksInput[]
     set?: TagWhereUniqueInput | TagWhereUniqueInput[]
     disconnect?: TagWhereUniqueInput | TagWhereUniqueInput[]
     delete?: TagWhereUniqueInput | TagWhereUniqueInput[]
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
-    update?: TagUpdateWithWhereUniqueWithoutTaskInput | TagUpdateWithWhereUniqueWithoutTaskInput[]
-    updateMany?: TagUpdateManyWithWhereWithoutTaskInput | TagUpdateManyWithWhereWithoutTaskInput[]
+    update?: TagUpdateWithWhereUniqueWithoutTasksInput | TagUpdateWithWhereUniqueWithoutTasksInput[]
+    updateMany?: TagUpdateManyWithWhereWithoutTasksInput | TagUpdateManyWithWhereWithoutTasksInput[]
     deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
   }
 
@@ -18931,17 +19070,26 @@ export namespace Prisma {
     deleteMany?: SubtaskScalarWhereInput | SubtaskScalarWhereInput[]
   }
 
-  export type TagUncheckedUpdateManyWithoutTaskNestedInput = {
-    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput> | TagCreateWithoutTaskInput[] | TagUncheckedCreateWithoutTaskInput[]
-    connectOrCreate?: TagCreateOrConnectWithoutTaskInput | TagCreateOrConnectWithoutTaskInput[]
-    upsert?: TagUpsertWithWhereUniqueWithoutTaskInput | TagUpsertWithWhereUniqueWithoutTaskInput[]
-    createMany?: TagCreateManyTaskInputEnvelope
+  export type TagUpdateOneWithoutTaskNestedInput = {
+    create?: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TagCreateOrConnectWithoutTaskInput
+    upsert?: TagUpsertWithoutTaskInput
+    disconnect?: TagWhereInput | boolean
+    delete?: TagWhereInput | boolean
+    connect?: TagWhereUniqueInput
+    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutTaskInput, TagUpdateWithoutTaskInput>, TagUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TagUncheckedUpdateManyWithoutTasksNestedInput = {
+    create?: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput> | TagCreateWithoutTasksInput[] | TagUncheckedCreateWithoutTasksInput[]
+    connectOrCreate?: TagCreateOrConnectWithoutTasksInput | TagCreateOrConnectWithoutTasksInput[]
+    upsert?: TagUpsertWithWhereUniqueWithoutTasksInput | TagUpsertWithWhereUniqueWithoutTasksInput[]
     set?: TagWhereUniqueInput | TagWhereUniqueInput[]
     disconnect?: TagWhereUniqueInput | TagWhereUniqueInput[]
     delete?: TagWhereUniqueInput | TagWhereUniqueInput[]
     connect?: TagWhereUniqueInput | TagWhereUniqueInput[]
-    update?: TagUpdateWithWhereUniqueWithoutTaskInput | TagUpdateWithWhereUniqueWithoutTaskInput[]
-    updateMany?: TagUpdateManyWithWhereWithoutTaskInput | TagUpdateManyWithWhereWithoutTaskInput[]
+    update?: TagUpdateWithWhereUniqueWithoutTasksInput | TagUpdateWithWhereUniqueWithoutTasksInput[]
+    updateMany?: TagUpdateManyWithWhereWithoutTasksInput | TagUpdateManyWithWhereWithoutTasksInput[]
     deleteMany?: TagScalarWhereInput | TagScalarWhereInput[]
   }
 
@@ -19033,20 +19181,84 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectMemberUpdateToOneWithWhereWithoutCommentsInput, ProjectMemberUpdateWithoutCommentsInput>, ProjectMemberUncheckedUpdateWithoutCommentsInput>
   }
 
-  export type TaskCreateNestedOneWithoutTagsInput = {
-    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput
-    connect?: TaskWhereUniqueInput
+  export type TaskCreateNestedManyWithoutTagsInput = {
+    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput> | TaskCreateWithoutTagsInput[] | TaskUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput | TaskCreateOrConnectWithoutTagsInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
   }
 
-  export type TaskUpdateOneWithoutTagsNestedInput = {
-    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput
-    upsert?: TaskUpsertWithoutTagsInput
-    disconnect?: TaskWhereInput | boolean
-    delete?: TaskWhereInput | boolean
-    connect?: TaskWhereUniqueInput
-    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTagsInput, TaskUpdateWithoutTagsInput>, TaskUncheckedUpdateWithoutTagsInput>
+  export type TaskCreateNestedManyWithoutTagInput = {
+    create?: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput> | TaskCreateWithoutTagInput[] | TaskUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagInput | TaskCreateOrConnectWithoutTagInput[]
+    createMany?: TaskCreateManyTagInputEnvelope
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+  }
+
+  export type TaskUncheckedCreateNestedManyWithoutTagsInput = {
+    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput> | TaskCreateWithoutTagsInput[] | TaskUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput | TaskCreateOrConnectWithoutTagsInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+  }
+
+  export type TaskUncheckedCreateNestedManyWithoutTagInput = {
+    create?: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput> | TaskCreateWithoutTagInput[] | TaskUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagInput | TaskCreateOrConnectWithoutTagInput[]
+    createMany?: TaskCreateManyTagInputEnvelope
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+  }
+
+  export type TaskUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput> | TaskCreateWithoutTagsInput[] | TaskUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput | TaskCreateOrConnectWithoutTagsInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutTagsInput | TaskUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutTagsInput | TaskUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutTagsInput | TaskUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
+  }
+
+  export type TaskUpdateManyWithoutTagNestedInput = {
+    create?: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput> | TaskCreateWithoutTagInput[] | TaskUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagInput | TaskCreateOrConnectWithoutTagInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutTagInput | TaskUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: TaskCreateManyTagInputEnvelope
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutTagInput | TaskUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutTagInput | TaskUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
+  }
+
+  export type TaskUncheckedUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput> | TaskCreateWithoutTagsInput[] | TaskUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagsInput | TaskCreateOrConnectWithoutTagsInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutTagsInput | TaskUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutTagsInput | TaskUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutTagsInput | TaskUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
+  }
+
+  export type TaskUncheckedUpdateManyWithoutTagNestedInput = {
+    create?: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput> | TaskCreateWithoutTagInput[] | TaskUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutTagInput | TaskCreateOrConnectWithoutTagInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutTagInput | TaskUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: TaskCreateManyTagInputEnvelope
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutTagInput | TaskUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutTagInput | TaskUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -19761,10 +19973,11 @@ export namespace Prisma {
     position: number
     status?: $Enums.TaskStatus
     column?: ColumnCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutExecutorInput = {
@@ -19775,7 +19988,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
@@ -19914,6 +20128,7 @@ export namespace Prisma {
     priority?: EnumPriorityNullableFilter<"Task"> | $Enums.Priority | null
     position?: IntFilter<"Task"> | number
     status?: EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
+    tagId?: StringNullableFilter<"Task"> | string | null
   }
 
   export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -20223,10 +20438,11 @@ export namespace Prisma {
     position: number
     status?: $Enums.TaskStatus
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutColumnInput = {
@@ -20238,7 +20454,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
@@ -20335,26 +20552,25 @@ export namespace Prisma {
     create: XOR<ProjectMemberCreateWithoutTasksInput, ProjectMemberUncheckedCreateWithoutTasksInput>
   }
 
-  export type TagCreateWithoutTaskInput = {
+  export type TagCreateWithoutTasksInput = {
     id?: string
     createdAt?: Date | string
     title: string
+    color?: string | null
+    Task?: TaskCreateNestedManyWithoutTagInput
   }
 
-  export type TagUncheckedCreateWithoutTaskInput = {
+  export type TagUncheckedCreateWithoutTasksInput = {
     id?: string
     createdAt?: Date | string
     title: string
+    color?: string | null
+    Task?: TaskUncheckedCreateNestedManyWithoutTagInput
   }
 
-  export type TagCreateOrConnectWithoutTaskInput = {
+  export type TagCreateOrConnectWithoutTasksInput = {
     where: TagWhereUniqueInput
-    create: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
-  }
-
-  export type TagCreateManyTaskInputEnvelope = {
-    data: TagCreateManyTaskInput | TagCreateManyTaskInput[]
-    skipDuplicates?: boolean
+    create: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput>
   }
 
   export type CommentCreateWithoutTaskInput = {
@@ -20432,6 +20648,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TagCreateWithoutTaskInput = {
+    id?: string
+    createdAt?: Date | string
+    title: string
+    color?: string | null
+    tasks?: TaskCreateNestedManyWithoutTagsInput
+  }
+
+  export type TagUncheckedCreateWithoutTaskInput = {
+    id?: string
+    createdAt?: Date | string
+    title: string
+    color?: string | null
+    tasks?: TaskUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type TagCreateOrConnectWithoutTaskInput = {
+    where: TagWhereUniqueInput
+    create: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
+  }
+
   export type ColumnUpsertWithoutTasksInput = {
     update: XOR<ColumnUpdateWithoutTasksInput, ColumnUncheckedUpdateWithoutTasksInput>
     create: XOR<ColumnCreateWithoutTasksInput, ColumnUncheckedCreateWithoutTasksInput>
@@ -20484,20 +20721,20 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
-  export type TagUpsertWithWhereUniqueWithoutTaskInput = {
+  export type TagUpsertWithWhereUniqueWithoutTasksInput = {
     where: TagWhereUniqueInput
-    update: XOR<TagUpdateWithoutTaskInput, TagUncheckedUpdateWithoutTaskInput>
-    create: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
+    update: XOR<TagUpdateWithoutTasksInput, TagUncheckedUpdateWithoutTasksInput>
+    create: XOR<TagCreateWithoutTasksInput, TagUncheckedCreateWithoutTasksInput>
   }
 
-  export type TagUpdateWithWhereUniqueWithoutTaskInput = {
+  export type TagUpdateWithWhereUniqueWithoutTasksInput = {
     where: TagWhereUniqueInput
-    data: XOR<TagUpdateWithoutTaskInput, TagUncheckedUpdateWithoutTaskInput>
+    data: XOR<TagUpdateWithoutTasksInput, TagUncheckedUpdateWithoutTasksInput>
   }
 
-  export type TagUpdateManyWithWhereWithoutTaskInput = {
+  export type TagUpdateManyWithWhereWithoutTasksInput = {
     where: TagScalarWhereInput
-    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyWithoutTaskInput>
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyWithoutTasksInput>
   }
 
   export type TagScalarWhereInput = {
@@ -20506,8 +20743,8 @@ export namespace Prisma {
     NOT?: TagScalarWhereInput | TagScalarWhereInput[]
     id?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
-    taskId?: StringNullableFilter<"Tag"> | string | null
     title?: StringFilter<"Tag"> | string
+    color?: StringNullableFilter<"Tag"> | string | null
   }
 
   export type CommentUpsertWithWhereUniqueWithoutTaskInput = {
@@ -20568,6 +20805,33 @@ export namespace Prisma {
     taskId?: StringNullableFilter<"Subtask"> | string | null
   }
 
+  export type TagUpsertWithoutTaskInput = {
+    update: XOR<TagUpdateWithoutTaskInput, TagUncheckedUpdateWithoutTaskInput>
+    create: XOR<TagCreateWithoutTaskInput, TagUncheckedCreateWithoutTaskInput>
+    where?: TagWhereInput
+  }
+
+  export type TagUpdateToOneWithWhereWithoutTaskInput = {
+    where?: TagWhereInput
+    data: XOR<TagUpdateWithoutTaskInput, TagUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TagUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    tasks?: TaskUpdateManyWithoutTagsNestedInput
+  }
+
+  export type TagUncheckedUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    tasks?: TaskUncheckedUpdateManyWithoutTagsNestedInput
+  }
+
   export type TaskCreateWithoutSubtasksInput = {
     id?: string
     createdAt?: Date | string
@@ -20577,9 +20841,10 @@ export namespace Prisma {
     status?: $Enums.TaskStatus
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutSubtasksInput = {
@@ -20592,7 +20857,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -20622,9 +20888,10 @@ export namespace Prisma {
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutSubtasksInput = {
@@ -20637,7 +20904,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -20651,9 +20919,10 @@ export namespace Prisma {
     status?: $Enums.TaskStatus
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutCommentsInput = {
@@ -20666,7 +20935,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -20713,9 +20983,10 @@ export namespace Prisma {
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     notifications?: NotificationUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutCommentsInput = {
@@ -20728,7 +20999,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -20768,6 +21040,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutTaskInput
     notifications?: NotificationCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTagsInput = {
@@ -20780,6 +21053,7 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
+    tagId?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
@@ -20790,44 +21064,77 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput>
   }
 
-  export type TaskUpsertWithoutTagsInput = {
-    update: XOR<TaskUpdateWithoutTagsInput, TaskUncheckedUpdateWithoutTagsInput>
-    create: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput>
-    where?: TaskWhereInput
+  export type TaskCreateWithoutTagInput = {
+    id?: string
+    createdAt?: Date | string
+    deadline?: Date | string | null
+    priority?: $Enums.Priority | null
+    position: number
+    status?: $Enums.TaskStatus
+    column?: ColumnCreateNestedOneWithoutTasksInput
+    executor?: ProjectMemberCreateNestedOneWithoutTasksInput
+    tags?: TagCreateNestedManyWithoutTasksInput
+    comments?: CommentCreateNestedManyWithoutTaskInput
+    notifications?: NotificationCreateNestedManyWithoutTaskInput
+    subtasks?: SubtaskCreateNestedManyWithoutTaskInput
   }
 
-  export type TaskUpdateToOneWithWhereWithoutTagsInput = {
-    where?: TaskWhereInput
+  export type TaskUncheckedCreateWithoutTagInput = {
+    id?: string
+    createdAt?: Date | string
+    columnId?: string | null
+    executorId?: string | null
+    projectId?: string | null
+    deadline?: Date | string | null
+    priority?: $Enums.Priority | null
+    position: number
+    status?: $Enums.TaskStatus
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
+    comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTaskInput
+    subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type TaskCreateOrConnectWithoutTagInput = {
+    where: TaskWhereUniqueInput
+    create: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput>
+  }
+
+  export type TaskCreateManyTagInputEnvelope = {
+    data: TaskCreateManyTagInput | TaskCreateManyTagInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskUpsertWithWhereUniqueWithoutTagsInput = {
+    where: TaskWhereUniqueInput
+    update: XOR<TaskUpdateWithoutTagsInput, TaskUncheckedUpdateWithoutTagsInput>
+    create: XOR<TaskCreateWithoutTagsInput, TaskUncheckedCreateWithoutTagsInput>
+  }
+
+  export type TaskUpdateWithWhereUniqueWithoutTagsInput = {
+    where: TaskWhereUniqueInput
     data: XOR<TaskUpdateWithoutTagsInput, TaskUncheckedUpdateWithoutTagsInput>
   }
 
-  export type TaskUpdateWithoutTagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
-    position?: IntFieldUpdateOperationsInput | number
-    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    column?: ColumnUpdateOneWithoutTasksNestedInput
-    executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    comments?: CommentUpdateManyWithoutTaskNestedInput
-    notifications?: NotificationUpdateManyWithoutTaskNestedInput
-    subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+  export type TaskUpdateManyWithWhereWithoutTagsInput = {
+    where: TaskScalarWhereInput
+    data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyWithoutTagsInput>
   }
 
-  export type TaskUncheckedUpdateWithoutTagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    columnId?: NullableStringFieldUpdateOperationsInput | string | null
-    executorId?: NullableStringFieldUpdateOperationsInput | string | null
-    projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
-    position?: IntFieldUpdateOperationsInput | number
-    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
-    subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
+  export type TaskUpsertWithWhereUniqueWithoutTagInput = {
+    where: TaskWhereUniqueInput
+    update: XOR<TaskUpdateWithoutTagInput, TaskUncheckedUpdateWithoutTagInput>
+    create: XOR<TaskCreateWithoutTagInput, TaskUncheckedCreateWithoutTagInput>
+  }
+
+  export type TaskUpdateWithWhereUniqueWithoutTagInput = {
+    where: TaskWhereUniqueInput
+    data: XOR<TaskUpdateWithoutTagInput, TaskUncheckedUpdateWithoutTagInput>
+  }
+
+  export type TaskUpdateManyWithWhereWithoutTagInput = {
+    where: TaskScalarWhereInput
+    data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyWithoutTagInput>
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -20872,9 +21179,10 @@ export namespace Prisma {
     status?: $Enums.TaskStatus
     column?: ColumnCreateNestedOneWithoutTasksInput
     executor?: ProjectMemberCreateNestedOneWithoutTasksInput
-    tags?: TagCreateNestedManyWithoutTaskInput
+    tags?: TagCreateNestedManyWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskCreateNestedManyWithoutTaskInput
+    Tag?: TagCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutNotificationsInput = {
@@ -20887,7 +21195,8 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
-    tags?: TagUncheckedCreateNestedManyWithoutTaskInput
+    tagId?: string | null
+    tags?: TagUncheckedCreateNestedManyWithoutTasksInput
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     subtasks?: SubtaskUncheckedCreateNestedManyWithoutTaskInput
   }
@@ -20956,9 +21265,10 @@ export namespace Prisma {
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     column?: ColumnUpdateOneWithoutTasksNestedInput
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutNotificationsInput = {
@@ -20971,7 +21281,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
   }
@@ -21116,6 +21427,7 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
+    tagId?: string | null
   }
 
   export type CommentCreateManyAuthorInput = {
@@ -21133,10 +21445,11 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     column?: ColumnUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutExecutorInput = {
@@ -21147,7 +21460,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
@@ -21161,6 +21475,7 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentUpdateWithoutAuthorInput = {
@@ -21273,6 +21588,7 @@ export namespace Prisma {
     priority?: $Enums.Priority | null
     position: number
     status?: $Enums.TaskStatus
+    tagId?: string | null
   }
 
   export type TaskUpdateWithoutColumnInput = {
@@ -21283,10 +21599,11 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
     executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
-    tags?: TagUpdateManyWithoutTaskNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutColumnInput = {
@@ -21298,7 +21615,8 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-    tags?: TagUncheckedUpdateManyWithoutTaskNestedInput
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
     subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
@@ -21313,12 +21631,7 @@ export namespace Prisma {
     priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
     position?: IntFieldUpdateOperationsInput | number
     status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
-  }
-
-  export type TagCreateManyTaskInput = {
-    id?: string
-    createdAt?: Date | string
-    title: string
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentCreateManyTaskInput = {
@@ -21344,22 +21657,27 @@ export namespace Prisma {
     title: string
   }
 
-  export type TagUpdateWithoutTaskInput = {
+  export type TagUpdateWithoutTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    Task?: TaskUpdateManyWithoutTagNestedInput
   }
 
-  export type TagUncheckedUpdateWithoutTaskInput = {
+  export type TagUncheckedUpdateWithoutTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    Task?: TaskUncheckedUpdateManyWithoutTagNestedInput
   }
 
-  export type TagUncheckedUpdateManyWithoutTaskInput = {
+  export type TagUncheckedUpdateManyWithoutTasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentUpdateWithoutTaskInput = {
@@ -21428,6 +21746,105 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskCreateManyTagInput = {
+    id?: string
+    createdAt?: Date | string
+    columnId?: string | null
+    executorId?: string | null
+    projectId?: string | null
+    deadline?: Date | string | null
+    priority?: $Enums.Priority | null
+    position: number
+    status?: $Enums.TaskStatus
+  }
+
+  export type TaskUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    column?: ColumnUpdateOneWithoutTasksNestedInput
+    executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
+    comments?: CommentUpdateManyWithoutTaskNestedInput
+    notifications?: NotificationUpdateManyWithoutTaskNestedInput
+    subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+    Tag?: TagUpdateOneWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    executorId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+    comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
+    subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateManyWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    executorId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    tagId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskUpdateWithoutTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    column?: ColumnUpdateOneWithoutTasksNestedInput
+    executor?: ProjectMemberUpdateOneWithoutTasksNestedInput
+    tags?: TagUpdateManyWithoutTasksNestedInput
+    comments?: CommentUpdateManyWithoutTaskNestedInput
+    notifications?: NotificationUpdateManyWithoutTaskNestedInput
+    subtasks?: SubtaskUpdateManyWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateWithoutTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    executorId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    tags?: TagUncheckedUpdateManyWithoutTasksNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTaskNestedInput
+    subtasks?: SubtaskUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateManyWithoutTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    executorId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableEnumPriorityFieldUpdateOperationsInput | $Enums.Priority | null
+    position?: IntFieldUpdateOperationsInput | number
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   }
 
 

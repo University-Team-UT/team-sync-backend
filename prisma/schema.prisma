@@ -113,11 +113,13 @@ model Task {
   deadline      DateTime?
   priority      Priority?
   position      Int
-  tags          Tag[]
+  tags          Tag[]          @relation("TaskTags")
   comments      Comment[]
   status        TaskStatus     @default(TODO)
   notifications Notification[]
   subtasks      Subtask[]
+  Tag           Tag?           @relation(fields: [tagId], references: [id])
+  tagId         String?
 
   @@map("tasks")
 }
@@ -135,6 +137,7 @@ model Subtask {
 model Comment {
   id        String        @id @default(uuid()) @map("comment_id")
   createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime?     @map("updated_at")
   content   String
   task      Task?         @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId    String?       @map("task_id")
@@ -148,9 +151,10 @@ model Comment {
 model Tag {
   id        String   @id @default(uuid()) @map("tag_id")
   createdAt DateTime @default(now()) @map("created_at")
-  Task      Task?    @relation(fields: [taskId], references: [id])
-  taskId    String?
+  tasks     Task[]   @relation("TaskTags")
   title     String
+  color     String?
+  Task      Task[]
 
   @@map("tags")
 }

@@ -4,6 +4,7 @@ import { AccountModule } from 'src/modules/account/account.module'
 import { AuthorizationModule } from 'src/modules/auth/authorization.module'
 import { MediaModule } from 'src/modules/media/media.module'
 import { BoardModule } from 'src/modules/project/board/board.module'
+import { ColumnsModule } from 'src/modules/project/board/columns/columns.module'
 import { ProjectModule } from 'src/modules/project/project.module'
 import { TagsModule } from 'src/modules/project/tags/tags.module'
 import { TaskModule } from 'src/modules/task/task.module'
@@ -26,7 +27,8 @@ import { DatabaseModule } from './database/database.module'
 		BoardModule,
 		TagsModule,
 		TaskModule,
-		MediaModule
+		MediaModule,
+		ColumnsModule
 	]
 })
 export class CoreModule {}

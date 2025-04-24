@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { DatabaseService } from 'src/core/database/database.service'
 
-import { CreateColumnDto, FilterColumnDto } from './dto/columns.dto'
+import {
+	CreateColumnDto,
+	FilterColumnDto,
+	UpdateColumnDto
+} from './dto/columns.dto'
 
 @Injectable()
 export class ColumnsService {
@@ -126,7 +130,7 @@ export class ColumnsService {
 		})
 	}
 
-	async updateColumn(columnId: string, dto: CreateColumnDto) {
+	async updateColumn(columnId: string, dto: UpdateColumnDto) {
 		return this.database.column.update({
 			where: {
 				id: columnId

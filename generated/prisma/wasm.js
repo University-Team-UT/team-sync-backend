@@ -182,7 +182,8 @@ exports.Prisma.TaskScalarFieldEnum = {
   deadline: 'deadline',
   priority: 'priority',
   position: 'position',
-  status: 'status'
+  status: 'status',
+  tagId: 'tagId'
 };
 
 exports.Prisma.SubtaskScalarFieldEnum = {
@@ -204,8 +205,8 @@ exports.Prisma.CommentScalarFieldEnum = {
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  taskId: 'taskId',
-  title: 'title'
+  title: 'title',
+  color: 'color'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {

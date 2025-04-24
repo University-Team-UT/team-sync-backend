@@ -113,11 +113,13 @@ model Task {
   deadline      DateTime?
   priority      Priority?
   position      Int
-  tags          Tag[]
+  tags          Tag[]          @relation("TaskTags")
   comments      Comment[]
   status        TaskStatus     @default(TODO)
   notifications Notification[]
   subtasks      Subtask[]
+  Tag           Tag?           @relation(fields: [tagId], references: [id])
+  tagId         String?
 
   @@map("tasks")
 }
@@ -148,9 +150,10 @@ model Comment {
 model Tag {
   id        String   @id @default(uuid()) @map("tag_id")
   createdAt DateTime @default(now()) @map("created_at")
-  Task      Task?    @relation(fields: [taskId], references: [id])
-  taskId    String?
+  tasks     Task[]   @relation("TaskTags")
   title     String
+  color     String?
+  Task      Task[]
 
   @@map("tags")
 }

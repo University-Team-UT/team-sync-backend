@@ -13,6 +13,14 @@ export class BoardService {
 		})
 	}
 
+	async getBoard(boardId: string) {
+		return this.database.board.findUnique({
+			where: {
+				id: boardId
+			}
+		})
+	}
+
 	async createBoard(projectId: string, title: string) {
 		return this.database.board.create({
 			data: {
