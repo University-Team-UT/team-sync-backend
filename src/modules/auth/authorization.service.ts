@@ -48,7 +48,8 @@ export class AuthorizationService {
 			}
 		})
 		return {
-			user: this.returnUserFields(newUser)
+			user: this.returnUserFields(newUser),
+			accessToken: await issueAccessToken(newUser.id, this.jwtService)
 		}
 	}
 
@@ -63,12 +64,14 @@ export class AuthorizationService {
 		const isValidPassword = await compare(dto.oldPassword, user.password)
 		if (!isValidPassword) throw new UnauthorizedException('Неверный пароль')
 
+		const salt = await genSalt(10)
+
 		await this.database.user.update({
 			where: {
 				id: user.id
 			},
 			data: {
-				password: dto.newPassword
+				password: await hash(dto.newPassword, salt)
 			}
 		})
 		return true

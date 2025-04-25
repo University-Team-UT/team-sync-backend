@@ -11,6 +11,7 @@ import {
 import { Auth } from 'src/shared/decorators/auth.decorator'
 
 import { PROJECT_ROUTES } from './config/project.routes'
+import { CreateProjectDto } from './dto/project.dto'
 import { ProjectService } from './project.service'
 
 @Controller(PROJECT_ROUTES.INDEX)
@@ -29,9 +30,9 @@ export class ProjectController {
 	@HttpCode(200)
 	async createProject(
 		@Param('workbenchId') workbenchId: string,
-		@Body() title: string
+		@Body() dto: CreateProjectDto
 	) {
-		return this.projectService.createProject(workbenchId, title)
+		return this.projectService.createProject(workbenchId, dto.title)
 	}
 
 	@Patch(PROJECT_ROUTES.UPDATE)
@@ -39,9 +40,9 @@ export class ProjectController {
 	@HttpCode(200)
 	async updateProject(
 		@Param('projectId') projectId: string,
-		@Body() title: string
+		@Body() dto: CreateProjectDto
 	) {
-		return this.projectService.createProject(projectId, title)
+		return this.projectService.updateProject(projectId, dto.title)
 	}
 
 	@Delete(PROJECT_ROUTES.DELETE)

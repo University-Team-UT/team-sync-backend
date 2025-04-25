@@ -14,12 +14,16 @@ export class CommentsService {
 			}
 		})
 	}
-	async sendComment(taskId: string, projectId: string, dto: CreateCommentDto) {
+	async sendComment(
+		taskId: string,
+		workbenchId: string,
+		dto: CreateCommentDto
+	) {
 		return this.database.comment.create({
 			data: {
 				...dto,
-				projectId,
-				taskId
+				taskId,
+				workbenchId
 			}
 		})
 	}

@@ -29,10 +29,10 @@ export class CommentsController {
 	@HttpCode(200)
 	async sendComment(
 		@Param('taskId') taskId: string,
-		@Param('projectId') projectId: string,
+		@Param('workbenchId') workbenchId: string,
 		@Body() dto: CreateCommentDto
 	) {
-		return this.commentsService.sendComment(taskId, projectId, dto)
+		return this.commentsService.sendComment(taskId, workbenchId, dto)
 	}
 
 	@Delete(COMMENT_ROUTES.DELETE)

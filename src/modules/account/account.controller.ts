@@ -4,7 +4,7 @@ import { CurrentUser } from 'src/shared/decorators/current.user.decorator'
 
 import { AccountService } from './account.service'
 import { ACCOUNT_ROUTES } from './config/account.routes'
-import { UpdateAccountDto } from './dto/account,dto'
+import { ChangePasswordDto, UpdateAccountDto } from './dto/account,dto'
 
 @Controller(ACCOUNT_ROUTES.INDEX)
 export class AccountController {
@@ -28,7 +28,10 @@ export class AccountController {
 	@HttpCode(200)
 	@Auth()
 	@Delete(ACCOUNT_ROUTES.DELETE_ACCOUNT)
-	async deleteAccount(@CurrentUser('id') id: string, @Body() password: string) {
-		return this.accountService.deleteAccount(id, password)
+	async deleteAccount(
+		@CurrentUser('id') id: string,
+		@Body() dto: ChangePasswordDto
+	) {
+		return this.accountService.deleteAccount(id, dto.password)
 	}
 }

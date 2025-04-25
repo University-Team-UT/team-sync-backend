@@ -7,16 +7,24 @@ import { CreateTagDto, UpdateTagDto } from './dto/tags.dto'
 export class TagsService {
 	constructor(private readonly database: DatabaseService) {}
 
-	async getTagsByProjectId(projectId: string) {
-		const tasksWithTags = await this.database.task.findMany({
-			where: { projectId },
-			select: {
-				tags: true
-			}
-		})
-		const tags = tasksWithTags.flatMap(task => task.tags)
+	async getTagsByProjectId(workbenchId: string) {
+		const [tasksWithTags, workbenchWithTags] = await Promise.all([
+			this.database.task.findMany({
+				where: { workbenchId },
+				select: { tags: true }
+			}),
+			this.database.workbench.findUnique({
+				where: { id: workbenchId },
+				select: { tags: true }
+			})
+		])
 
-		const uniqueTags = tags.filter(
+		const taskTags = tasksWithTags.flatMap(task => task.tags)
+
+		const workbenchTags = workbenchWithTags?.tags ?? []
+
+		const allTags = [...taskTags, ...workbenchTags]
+		const uniqueTags = allTags.filter(
 			(tag, index, self) => index === self.findIndex(t => t.id === tag.id)
 		)
 
@@ -53,20 +61,12 @@ export class TagsService {
 		})
 	}
 
-	async createTag(taskId: string, dto: CreateTagDto) {
+	async createTag(workbenchId: string, dto: CreateTagDto) {
 		const tag = await this.database.tag.create({
 			data: {
 				title: dto.title,
-				color: dto.color
-			}
-		})
-
-		await this.database.task.update({
-			where: { id: taskId },
-			data: {
-				tags: {
-					connect: { id: tag.id }
-				}
+				color: dto.color,
+				workbenchId: workbenchId
 			}
 		})
 

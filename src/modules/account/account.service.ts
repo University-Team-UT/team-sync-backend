@@ -22,7 +22,9 @@ export class AccountService {
 	async updateAccount(id: string, dto: UpdateAccountDto) {
 		return this.database.user.update({
 			where: { id },
-			data: dto
+			data: {
+				...dto
+			}
 		})
 	}
 	async deleteAccount(id: string, password: string) {

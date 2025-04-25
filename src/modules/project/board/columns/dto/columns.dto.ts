@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
-import { IsArray, IsDate, IsEnum, IsOptional, IsString } from 'class-validator'
+import {
+	IsArray,
+	IsDate,
+	IsEnum,
+	IsNumber,
+	IsOptional,
+	IsString
+} from 'class-validator'
 import { Priority, TaskStatus } from 'generated/prisma'
 
 export class CreateColumnDto {
@@ -24,6 +31,12 @@ export class UpdateColumnDto {
 	@IsString()
 	@IsOptional()
 	color?: string
+}
+
+export class ChangeColumnPositionDto {
+	@ApiProperty()
+	@IsNumber()
+	newPosition: number
 }
 
 export class FilterColumnDto {

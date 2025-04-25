@@ -8,10 +8,18 @@ import {
 	Patch,
 	Post
 } from '@nestjs/common'
+import { ApiProperty } from '@nestjs/swagger'
+import { IsString } from 'class-validator'
 import { Auth } from 'src/shared/decorators/auth.decorator'
 
 import { BoardService } from './board.service'
 import { BOARD_ROUTES } from './config/board.routes'
+
+class BoardDto {
+	@ApiProperty()
+	@IsString()
+	title: string
+}
 
 @Controller(BOARD_ROUTES.INDEX)
 export class BoardController {
@@ -36,19 +44,16 @@ export class BoardController {
 	@HttpCode(200)
 	async createBoard(
 		@Param('projectId') projectId: string,
-		@Body() title: string
+		@Body() dto: BoardDto
 	) {
-		return this.boardService.createBoard(projectId, title)
+		return this.boardService.createBoard(projectId, dto.title)
 	}
 
 	@Patch(BOARD_ROUTES.UPDATE_BOARD)
 	@Auth()
 	@HttpCode(200)
-	async updateBoard(
-		@Param('projectId') projectId: string,
-		@Body() title: string
-	) {
-		return this.boardService.updateBoard(projectId, title)
+	async updateBoard(@Param('boardId') boardId: string, @Body() dto: BoardDto) {
+		return this.boardService.updateBoard(boardId, dto.title)
 	}
 
 	@Delete(BOARD_ROUTES.DELETE_BOARD)

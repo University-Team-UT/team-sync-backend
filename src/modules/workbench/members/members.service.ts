@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { DatabaseService } from 'src/core/database/database.service'
+import { NotificationsService } from 'src/modules/notifications/notifications.service'
 
 import { EditMemberDto, InviteUsersDto } from './dto/members.dto'
 
@@ -13,7 +14,8 @@ export class MembersService {
 	allowedOrigin: string
 	constructor(
 		private readonly database: DatabaseService,
-		private readonly configService: ConfigService
+		private readonly configService: ConfigService,
+		private readonly notificationsService: NotificationsService
 	) {
 		this.allowedOrigin = this.configService.getOrThrow<string>('ALLOWED_ORIGIN')
 	}
@@ -46,12 +48,26 @@ export class MembersService {
 				}
 			}
 		})
+		const unusedEmails = users.map(user => !dto.emails.includes(user.email))
 		const workbench = await this.database.workbench.findUnique({
 			where: {
 				id: dto.workbenchId
 			}
 		})
-		//TODO SEND NOTIFICATION
+
+		await Promise.all(
+			users.map(user =>
+				this.notificationsService.sendNotification(
+					user.id,
+					`Вы были приглашены в рабочее пространство ${workbench?.title}`,
+					'Новое приглашение'
+				)
+			)
+		)
+
+		throw new NotFoundException(
+			`Пользователи с указанными email-адресами не найдены, для их приглашения используйте ссылку приглашения: ${unusedEmails.join(', ')}`
+		)
 	}
 	async editMemberRole(
 		memberId: string,

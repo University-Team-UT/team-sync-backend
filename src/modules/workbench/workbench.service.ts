@@ -44,7 +44,10 @@ export class WorkbenchService {
 	async updateWorkbench(dto: UpdateWorkbenchDto) {
 		const workbench = await this.database.workbench.update({
 			where: { id: dto.workbenchId },
-			data: dto,
+			data: {
+				title: dto.title,
+				description: dto.description
+			},
 			include: {
 				members: true
 			}
@@ -52,9 +55,9 @@ export class WorkbenchService {
 
 		return workbench
 	}
-	async deleteWorkbench(workbenchId: string) {
+	async deleteWorkbench(id: string) {
 		await this.database.workbench.delete({
-			where: { id: workbenchId }
+			where: { id }
 		})
 	}
 }

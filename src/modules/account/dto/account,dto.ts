@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Transform } from 'class-transformer'
 import { IsDate, IsEmail, IsOptional, IsString } from 'class-validator'
 
 export class UpdateAccountDto {
@@ -20,7 +21,8 @@ export class UpdateAccountDto {
 	@IsDate()
 	@IsOptional()
 	@ApiProperty({ required: false })
-	dateOfBirth?: string
+	@Transform(({ value }) => new Date(value))
+	dateOfBirth?: Date
 
 	@IsString()
 	@IsOptional()
@@ -31,4 +33,10 @@ export class UpdateAccountDto {
 	@IsOptional()
 	@ApiProperty({ required: false })
 	telegramUsername?: string
+}
+
+export class ChangePasswordDto {
+	@IsString()
+	@ApiProperty()
+	password: string
 }

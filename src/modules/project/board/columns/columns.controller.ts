@@ -14,6 +14,7 @@ import { Auth } from 'src/shared/decorators/auth.decorator'
 import { ColumnsService } from './columns.service'
 import { COLUMNS_ROUTES } from './config/columns.routes'
 import {
+	ChangeColumnPositionDto,
 	CreateColumnDto,
 	FilterColumnDto,
 	UpdateColumnDto
@@ -62,9 +63,9 @@ export class ColumnsController {
 	@HttpCode(200)
 	async changeColumnPosition(
 		@Param('columnId') columnId: string,
-		@Body() newPosition: number
+		@Body() dto: ChangeColumnPositionDto
 	) {
-		return this.columnsService.changePosition(columnId, newPosition)
+		return this.columnsService.changePosition(columnId, dto.newPosition)
 	}
 
 	@Delete(COLUMNS_ROUTES.DELETE_COLUMN)

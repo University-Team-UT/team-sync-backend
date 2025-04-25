@@ -143,11 +143,6 @@ exports.Prisma.WorkbenchScalarFieldEnum = {
   avatar: 'avatar'
 };
 
-exports.Prisma.ProjectMemberScalarFieldEnum = {
-  userId: 'userId',
-  projectId: 'projectId'
-};
-
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -178,12 +173,12 @@ exports.Prisma.TaskScalarFieldEnum = {
   createdAt: 'createdAt',
   columnId: 'columnId',
   executorId: 'executorId',
-  projectId: 'projectId',
+  workbenchId: 'workbenchId',
   deadline: 'deadline',
+  title: 'title',
   priority: 'priority',
   position: 'position',
-  status: 'status',
-  tagId: 'tagId'
+  status: 'status'
 };
 
 exports.Prisma.SubtaskScalarFieldEnum = {
@@ -196,17 +191,19 @@ exports.Prisma.SubtaskScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   content: 'content',
   taskId: 'taskId',
   authorId: 'authorId',
-  projectId: 'projectId'
+  workbenchId: 'workbenchId'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   title: 'title',
-  color: 'color'
+  color: 'color',
+  workbenchId: 'workbenchId'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -269,7 +266,6 @@ exports.Prisma.ModelName = {
   User: 'User',
   WorkbenchMember: 'WorkbenchMember',
   Workbench: 'Workbench',
-  ProjectMember: 'ProjectMember',
   Project: 'Project',
   Board: 'Board',
   Column: 'Column',

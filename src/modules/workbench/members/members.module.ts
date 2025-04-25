@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
-import { MembersService } from './members.service';
-import { MembersController } from './members.controller';
+import { Module } from '@nestjs/common'
+import { NotificationsService } from 'src/modules/notifications/notifications.service'
+
+import { MembersController } from './members.controller'
+import { MembersService } from './members.service'
 
 @Module({
-  controllers: [MembersController],
-  providers: [MembersService],
+	controllers: [MembersController],
+	providers: [MembersService, NotificationsService]
 })
 export class MembersModule {}

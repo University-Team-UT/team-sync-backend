@@ -7,6 +7,7 @@ import { BoardModule } from 'src/modules/project/board/board.module'
 import { ColumnsModule } from 'src/modules/project/board/columns/columns.module'
 import { ProjectModule } from 'src/modules/project/project.module'
 import { TagsModule } from 'src/modules/project/tags/tags.module'
+import { CommentsModule } from 'src/modules/task/comments/comments.module'
 import { TaskModule } from 'src/modules/task/task.module'
 import { WorkbenchModule } from 'src/modules/workbench/workbench.module'
 import { IS_DEV } from 'src/shared/utils/is-dev'
@@ -28,7 +29,9 @@ import { DatabaseModule } from './database/database.module'
 		TagsModule,
 		TaskModule,
 		MediaModule,
-		ColumnsModule
+		ColumnsModule,
+		TaskModule,
+		CommentsModule
 	]
 })
 export class CoreModule {}

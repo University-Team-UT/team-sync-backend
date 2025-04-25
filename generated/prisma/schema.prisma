@@ -20,7 +20,6 @@ model User {
   about            String?
 
   workbenches   WorkbenchMember[]
-  projects      ProjectMember[]
   notifications Notification[]
 
   @@map("users")
@@ -28,10 +27,13 @@ model User {
 
 model WorkbenchMember {
   user        User          @relation(fields: [userId], references: [id])
-  workbench   Workbench     @relation(fields: [workbenchId], references: [id])
+  workbench   Workbench     @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
   role        WorkbenchRole @default(VISITOR)
   userId      String        @map("user_id")
   workbenchId String        @map("workbench_id")
+
+  tasks    Task[]
+  comments Comment[]
 
   @@id([userId, workbenchId])
   @@index([role])
@@ -47,20 +49,9 @@ model Workbench {
 
   members  WorkbenchMember[]
   projects Project[]
+  tags     Tag[]
 
   @@map("workbenches")
-}
-
-model ProjectMember {
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  userId    String    @map("user_id")
-  projectId String    @map("project_id")
-  tasks     Task[]
-  comments  Comment[]
-
-  @@id([userId, projectId])
-  @@map("project_members")
 }
 
 model Project {
@@ -69,10 +60,9 @@ model Project {
   title     String
   avatar    String?
 
-  status      ProjectStatus   @default(ACTIVE)
-  members     ProjectMember[]
-  workbench   Workbench?      @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
-  workbenchId String?         @map("workbench_id")
+  status      ProjectStatus @default(ACTIVE)
+  workbench   Workbench?    @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  workbenchId String?       @map("workbench_id")
   boards      Board[]
 
   @@map("projects")
@@ -103,23 +93,22 @@ model Column {
 }
 
 model Task {
-  id            String         @id @default(uuid()) @map("task_id")
-  createdAt     DateTime       @default(now()) @map("created_at")
-  column        Column?        @relation(fields: [columnId], references: [id], onDelete: Cascade)
-  columnId      String?        @map("column_id")
-  executor      ProjectMember? @relation(fields: [executorId, projectId], references: [userId, projectId], onDelete: Cascade)
-  executorId    String?        @map("executor_id")
-  projectId     String?        @map("project_id")
+  id            String           @id @default(uuid()) @map("task_id")
+  createdAt     DateTime         @default(now()) @map("created_at")
+  column        Column?          @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  columnId      String?          @map("column_id")
+  executor      WorkbenchMember? @relation(fields: [executorId, workbenchId], references: [userId, workbenchId], onDelete: Cascade)
+  executorId    String?          @map("executor_id")
+  workbenchId   String?          @map("project_id")
   deadline      DateTime?
+  title         String
   priority      Priority?
   position      Int
-  tags          Tag[]          @relation("TaskTags")
+  tags          Tag[]            @relation("TaskTags")
   comments      Comment[]
-  status        TaskStatus     @default(TODO)
+  status        TaskStatus       @default(TODO)
   notifications Notification[]
   subtasks      Subtask[]
-  Tag           Tag?           @relation(fields: [tagId], references: [id])
-  tagId         String?
 
   @@map("tasks")
 }
@@ -135,25 +124,27 @@ model Subtask {
 }
 
 model Comment {
-  id        String        @id @default(uuid()) @map("comment_id")
-  createdAt DateTime      @default(now()) @map("created_at")
-  content   String
-  task      Task?         @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  taskId    String?       @map("task_id")
-  author    ProjectMember @relation(fields: [authorId, projectId], references: [userId, projectId], onDelete: Cascade)
-  authorId  String        @map("author_id")
-  projectId String        @map("project_id")
+  id          String          @id @default(uuid()) @map("comment_id")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime?       @map("updated_at")
+  content     String
+  task        Task?           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId      String?         @map("task_id")
+  author      WorkbenchMember @relation(fields: [authorId, workbenchId], references: [userId, workbenchId], onDelete: Cascade)
+  authorId    String          @map("author_id")
+  workbenchId String          @map("project_id")
 
   @@map("comments")
 }
 
 model Tag {
-  id        String   @id @default(uuid()) @map("tag_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  tasks     Task[]   @relation("TaskTags")
-  title     String
-  color     String?
-  Task      Task[]
+  id          String     @id @default(uuid()) @map("tag_id")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  tasks       Task[]     @relation("TaskTags")
+  title       String
+  color       String?
+  workbench   Workbench? @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  workbenchId String?    @map("workbench_id")
 
   @@map("tags")
 }

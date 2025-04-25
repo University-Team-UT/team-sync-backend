@@ -46,7 +46,7 @@ export class WorkbenchController {
 	@Auth()
 	@Delete(WORKBENCH_ROUTES.DELETE)
 	@HttpCode(200)
-	deleteWorkbench(@Param() id: string) {
+	deleteWorkbench(@Param('id') id: string) {
 		return this.workbenchService.deleteWorkbench(id)
 	}
 }

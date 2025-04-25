@@ -17,6 +17,16 @@ export class ColumnsService {
 			},
 			orderBy: {
 				position: 'asc'
+			},
+			include: {
+				tasks: {
+					include: {
+						subtasks: true
+					},
+					orderBy: {
+						position: 'asc'
+					}
+				}
 			}
 		})
 	}

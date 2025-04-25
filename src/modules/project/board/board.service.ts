@@ -17,6 +17,17 @@ export class BoardService {
 		return this.database.board.findUnique({
 			where: {
 				id: boardId
+			},
+			include: {
+				columns: {
+					include: {
+						tasks: {
+							include: {
+								subtasks: true
+							}
+						}
+					}
+				}
 			}
 		})
 	}
@@ -29,10 +40,10 @@ export class BoardService {
 			}
 		})
 	}
-	async updateBoard(projectId: string, title: string) {
+	async updateBoard(boardId: string, title: string) {
 		return this.database.board.update({
 			where: {
-				id: projectId
+				id: boardId
 			},
 			data: {
 				title

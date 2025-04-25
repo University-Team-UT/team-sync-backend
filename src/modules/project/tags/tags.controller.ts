@@ -1,4 +1,5 @@
 import {
+	Body,
 	Controller,
 	Delete,
 	Get,
@@ -17,24 +18,27 @@ import { TagsService } from './tags.service'
 export class TagsController {
 	constructor(private readonly tagsService: TagsService) {}
 
-	@Get(TAGS_ROUTES.GET_TAGS_BY_PROJECT)
+	@Get(TAGS_ROUTES.GET_TAGS_BY_WORKBENCH)
 	@Auth()
 	@HttpCode(200)
-	async getTagsByProjectId(@Param('projectId') projectId: string) {
-		return this.tagsService.getTagsByProjectId(projectId)
+	async getTagsByProjectId(@Param('workbenchId') workbenchId: string) {
+		return this.tagsService.getTagsByProjectId(workbenchId)
 	}
 
 	@Post(TAGS_ROUTES.CREATE_TAG)
 	@Auth()
 	@HttpCode(200)
-	async createTag(@Param('taskId') taskId: string, dto: CreateTagDto) {
-		return this.tagsService.createTag(taskId, dto)
+	async createTag(
+		@Param('workbenchId') workbenchId: string,
+		@Body() dto: CreateTagDto
+	) {
+		return this.tagsService.createTag(workbenchId, dto)
 	}
 
 	@Patch(TAGS_ROUTES.UPDATE_TAG)
 	@Auth()
 	@HttpCode(200)
-	async updateTag(@Param('tagId') tagId: string, dto: UpdateTagDto) {
+	async updateTag(@Param('tagId') tagId: string, @Body() dto: UpdateTagDto) {
 		return this.tagsService.updateTag(tagId, dto)
 	}
 
