@@ -64,7 +64,7 @@ export class MembersController {
 		return this.membersService.excludeMember(memberId, workbenchId)
 	}
 
-	@Patch(MEMBERS_ROUTES.GET_INVITE_INFO)
+	@Get(MEMBERS_ROUTES.GET_INVITE_INFO)
 	@Auth()
 	@HttpCode(200)
 	getInviteInfo(
