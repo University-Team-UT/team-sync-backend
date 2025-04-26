@@ -71,7 +71,8 @@ export class MembersController {
 		@Param('memberId') memberId: string,
 		@Query('workbenchId') workbenchId: string
 	) {
-		return this.membersService.getInviteInfo(memberId, workbenchId)
+		console.log(memberId, workbenchId)
+		return this.membersService.getInviteInfo(workbenchId, memberId)
 	}
 
 	@Patch(MEMBERS_ROUTES.ACCEPT_INVITE)
