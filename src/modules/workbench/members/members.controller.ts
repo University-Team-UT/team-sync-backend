@@ -19,7 +19,7 @@ import { MembersService } from './members.service'
 export class MembersController {
 	constructor(private readonly membersService: MembersService) {}
 
-	@Get()
+	@Get('/:inviterId')
 	@Auth()
 	@HttpCode(200)
 	getInviteLink(
