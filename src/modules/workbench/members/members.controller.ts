@@ -29,7 +29,7 @@ export class MembersController {
 		return this.membersService.getInviteLink(inviterId, workbenchId)
 	}
 
-	@Get()
+	@Get('get-members')
 	@Auth()
 	@HttpCode(200)
 	getWorkbenchMembers(@Param('workbenchId') workbenchId: string) {
