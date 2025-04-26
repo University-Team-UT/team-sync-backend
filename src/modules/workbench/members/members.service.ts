@@ -51,15 +51,21 @@ export class MembersService {
 			throw new UnauthorizedException('У пользователя нет прав администратора')
 		return this.generateInviteLink(workbenchId, inviterId)
 	}
+
 	async inviteUsers(dto: InviteUsersDto) {
+		const emails = dto.emails.map(invite => invite.email)
+
 		const users = await this.database.user.findMany({
 			where: {
 				email: {
-					in: dto.emails
+					in: emails
 				}
 			}
 		})
-		const unusedEmails = users.map(user => !dto.emails.includes(user.email))
+
+		const foundEmails = users.map(user => user.email)
+		const unusedEmails = emails.filter(email => !foundEmails.includes(email))
+
 		const workbench = await this.database.workbench.findUnique({
 			where: {
 				id: dto.workbenchId
@@ -76,10 +82,13 @@ export class MembersService {
 			)
 		)
 
-		throw new NotFoundException(
-			`Пользователи с указанными email-адресами не найдены, для их приглашения используйте ссылку приглашения: ${unusedEmails.join(', ')}`
-		)
+		if (unusedEmails.length) {
+			throw new NotFoundException(
+				`Пользователи с указанными email-адресами не найдены: ${unusedEmails.join(', ')}. Для их приглашения используйте ссылку приглашения.`
+			)
+		}
 	}
+
 	async editMemberRole(
 		memberId: string,
 		workbenchId: string,

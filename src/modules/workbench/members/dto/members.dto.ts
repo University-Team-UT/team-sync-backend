@@ -2,17 +2,25 @@ import { ApiProperty } from '@nestjs/swagger'
 import { WorkbenchRole } from '@prisma/client'
 import { IsArray, IsEnum, IsString } from 'class-validator'
 
+export class Invite {
+	@ApiProperty()
+	@IsString()
+	email: string
+
+	@ApiProperty()
+	@IsEnum(WorkbenchRole)
+	role: WorkbenchRole
+}
+
 export class InviteUsersDto {
 	@ApiProperty()
 	@IsString()
 	workbenchId: string
 
-	@ApiProperty({ type: [String] })
+	@ApiProperty({ type: [Invite] })
 	@IsArray()
-	@IsString({ each: true })
-	emails: string[]
+	emails: Invite[]
 }
-
 export class EditMemberDto {
 	@ApiProperty()
 	@IsEnum(WorkbenchRole)
