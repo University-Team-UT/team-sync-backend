@@ -114,11 +114,12 @@ model Task {
 }
 
 model Subtask {
-  id        String   @id @default(uuid()) @map("subtask_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  title     String
-  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  taskId    String?  @map("task_id")
+  id          String   @id @default(uuid()) @map("subtask_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  title       String
+  task        Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId      String?  @map("task_id")
+  isCompleted Boolean? @default(false)
 
   @@map("subtasks")
 }

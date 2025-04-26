@@ -9,6 +9,8 @@ export const TASK_ROUTES = {
 	SET_TAG: 'set-tag/:taskId',
 	REMOVE_TAG: 'remove-tag/:taskId',
 	DELETE_TASK: 'delete-task/:taskId',
+	GET_TASKS_BY_WORKBENCH_ID: 'get-tasks-by-workbench-id/:workbenchId',
+	GET_TASKS_BY_EXECUTOR_ID: 'get-tasks-by-executor-id/:executorId',
 
 	CREATE_SUBTASK: 'add-subtask',
 	UPDATE_SUBTASK: 'update-subtask/:subtaskId',

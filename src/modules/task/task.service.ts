@@ -12,6 +12,17 @@ import {
 export class TaskService {
 	constructor(private readonly database: DatabaseService) {}
 
+	async getTasksByWorkbenchId(workbenchId: string) {
+		return this.database.task.findMany({
+			where: { workbenchId }
+		})
+	}
+	async getTasksByExecutorId(executorId: string) {
+		return this.database.task.findMany({
+			where: { executorId }
+		})
+	}
+
 	async createTask(dto: CreateTaskDto) {
 		const task = await this.database.$transaction(async tx => {
 			await tx.task.updateMany({

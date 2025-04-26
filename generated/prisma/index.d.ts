@@ -10235,6 +10235,7 @@ export namespace Prisma {
     createdAt: Date | null
     title: string | null
     taskId: string | null
+    isCompleted: boolean | null
   }
 
   export type SubtaskMaxAggregateOutputType = {
@@ -10242,6 +10243,7 @@ export namespace Prisma {
     createdAt: Date | null
     title: string | null
     taskId: string | null
+    isCompleted: boolean | null
   }
 
   export type SubtaskCountAggregateOutputType = {
@@ -10249,6 +10251,7 @@ export namespace Prisma {
     createdAt: number
     title: number
     taskId: number
+    isCompleted: number
     _all: number
   }
 
@@ -10258,6 +10261,7 @@ export namespace Prisma {
     createdAt?: true
     title?: true
     taskId?: true
+    isCompleted?: true
   }
 
   export type SubtaskMaxAggregateInputType = {
@@ -10265,6 +10269,7 @@ export namespace Prisma {
     createdAt?: true
     title?: true
     taskId?: true
+    isCompleted?: true
   }
 
   export type SubtaskCountAggregateInputType = {
@@ -10272,6 +10277,7 @@ export namespace Prisma {
     createdAt?: true
     title?: true
     taskId?: true
+    isCompleted?: true
     _all?: true
   }
 
@@ -10352,6 +10358,7 @@ export namespace Prisma {
     createdAt: Date
     title: string
     taskId: string | null
+    isCompleted: boolean | null
     _count: SubtaskCountAggregateOutputType | null
     _min: SubtaskMinAggregateOutputType | null
     _max: SubtaskMaxAggregateOutputType | null
@@ -10376,6 +10383,7 @@ export namespace Prisma {
     createdAt?: boolean
     title?: boolean
     taskId?: boolean
+    isCompleted?: boolean
     task?: boolean | Subtask$taskArgs<ExtArgs>
   }, ExtArgs["result"]["subtask"]>
 
@@ -10384,6 +10392,7 @@ export namespace Prisma {
     createdAt?: boolean
     title?: boolean
     taskId?: boolean
+    isCompleted?: boolean
     task?: boolean | Subtask$taskArgs<ExtArgs>
   }, ExtArgs["result"]["subtask"]>
 
@@ -10392,6 +10401,7 @@ export namespace Prisma {
     createdAt?: boolean
     title?: boolean
     taskId?: boolean
+    isCompleted?: boolean
     task?: boolean | Subtask$taskArgs<ExtArgs>
   }, ExtArgs["result"]["subtask"]>
 
@@ -10400,9 +10410,10 @@ export namespace Prisma {
     createdAt?: boolean
     title?: boolean
     taskId?: boolean
+    isCompleted?: boolean
   }
 
-  export type SubtaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "title" | "taskId", ExtArgs["result"]["subtask"]>
+  export type SubtaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "title" | "taskId" | "isCompleted", ExtArgs["result"]["subtask"]>
   export type SubtaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     task?: boolean | Subtask$taskArgs<ExtArgs>
   }
@@ -10423,6 +10434,7 @@ export namespace Prisma {
       createdAt: Date
       title: string
       taskId: string | null
+      isCompleted: boolean | null
     }, ExtArgs["result"]["subtask"]>
     composites: {}
   }
@@ -10851,6 +10863,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Subtask", 'DateTime'>
     readonly title: FieldRef<"Subtask", 'String'>
     readonly taskId: FieldRef<"Subtask", 'String'>
+    readonly isCompleted: FieldRef<"Subtask", 'Boolean'>
   }
     
 
@@ -14716,7 +14729,8 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     title: 'title',
-    taskId: 'taskId'
+    taskId: 'taskId',
+    isCompleted: 'isCompleted'
   };
 
   export type SubtaskScalarFieldEnum = (typeof SubtaskScalarFieldEnum)[keyof typeof SubtaskScalarFieldEnum]
@@ -14883,6 +14897,13 @@ export namespace Prisma {
    * Reference to a field of type 'TaskStatus[]'
    */
   export type ListEnumTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -15397,6 +15418,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Subtask"> | Date | string
     title?: StringFilter<"Subtask"> | string
     taskId?: StringNullableFilter<"Subtask"> | string | null
+    isCompleted?: BoolNullableFilter<"Subtask"> | boolean | null
     task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
   }
 
@@ -15405,6 +15427,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     taskId?: SortOrderInput | SortOrder
+    isCompleted?: SortOrderInput | SortOrder
     task?: TaskOrderByWithRelationInput
   }
 
@@ -15416,6 +15439,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Subtask"> | Date | string
     title?: StringFilter<"Subtask"> | string
     taskId?: StringNullableFilter<"Subtask"> | string | null
+    isCompleted?: BoolNullableFilter<"Subtask"> | boolean | null
     task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
   }, "id">
 
@@ -15424,6 +15448,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     taskId?: SortOrderInput | SortOrder
+    isCompleted?: SortOrderInput | SortOrder
     _count?: SubtaskCountOrderByAggregateInput
     _max?: SubtaskMaxOrderByAggregateInput
     _min?: SubtaskMinOrderByAggregateInput
@@ -15437,6 +15462,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Subtask"> | Date | string
     title?: StringWithAggregatesFilter<"Subtask"> | string
     taskId?: StringNullableWithAggregatesFilter<"Subtask"> | string | null
+    isCompleted?: BoolNullableWithAggregatesFilter<"Subtask"> | boolean | null
   }
 
   export type CommentWhereInput = {
@@ -16131,6 +16157,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
+    isCompleted?: boolean | null
     task?: TaskCreateNestedOneWithoutSubtasksInput
   }
 
@@ -16139,12 +16166,14 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     taskId?: string | null
+    isCompleted?: boolean | null
   }
 
   export type SubtaskUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     task?: TaskUpdateOneWithoutSubtasksNestedInput
   }
 
@@ -16153,6 +16182,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type SubtaskCreateManyInput = {
@@ -16160,12 +16190,14 @@ export namespace Prisma {
     createdAt?: Date | string
     title: string
     taskId?: string | null
+    isCompleted?: boolean | null
   }
 
   export type SubtaskUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type SubtaskUncheckedUpdateManyInput = {
@@ -16173,6 +16205,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
     taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type CommentCreateInput = {
@@ -16921,6 +16954,11 @@ export namespace Prisma {
     _max?: NestedEnumTaskStatusFilter<$PrismaModel>
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type TaskNullableScalarRelationFilter = {
     is?: TaskWhereInput | null
     isNot?: TaskWhereInput | null
@@ -16931,6 +16969,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     taskId?: SortOrder
+    isCompleted?: SortOrder
   }
 
   export type SubtaskMaxOrderByAggregateInput = {
@@ -16938,6 +16977,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     taskId?: SortOrder
+    isCompleted?: SortOrder
   }
 
   export type SubtaskMinOrderByAggregateInput = {
@@ -16945,6 +16985,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     title?: SortOrder
     taskId?: SortOrder
+    isCompleted?: SortOrder
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type WorkbenchMemberScalarRelationFilter = {
@@ -17791,6 +17840,10 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput
   }
 
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
   export type TaskUpdateOneWithoutSubtasksNestedInput = {
     create?: XOR<TaskCreateWithoutSubtasksInput, TaskUncheckedCreateWithoutSubtasksInput>
     connectOrCreate?: TaskCreateOrConnectWithoutSubtasksInput
@@ -18146,6 +18199,19 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTaskStatusFilter<$PrismaModel>
     _max?: NestedEnumTaskStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
@@ -19108,12 +19174,14 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
+    isCompleted?: boolean | null
   }
 
   export type SubtaskUncheckedCreateWithoutTaskInput = {
     id?: string
     createdAt?: Date | string
     title: string
+    isCompleted?: boolean | null
   }
 
   export type SubtaskCreateOrConnectWithoutTaskInput = {
@@ -19252,6 +19320,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Subtask"> | Date | string
     title?: StringFilter<"Subtask"> | string
     taskId?: StringNullableFilter<"Subtask"> | string | null
+    isCompleted?: BoolNullableFilter<"Subtask"> | boolean | null
   }
 
   export type TaskCreateWithoutSubtasksInput = {
@@ -20077,6 +20146,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     title: string
+    isCompleted?: boolean | null
   }
 
   export type TagUpdateWithoutTasksInput = {
@@ -20160,18 +20230,21 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type SubtaskUncheckedUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type SubtaskUncheckedUpdateManyWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type TaskUpdateWithoutTagsInput = {

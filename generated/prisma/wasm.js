@@ -185,7 +185,8 @@ exports.Prisma.SubtaskScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   title: 'title',
-  taskId: 'taskId'
+  taskId: 'taskId',
+  isCompleted: 'isCompleted'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
