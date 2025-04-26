@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { WorkbenchRole } from '@prisma/client'
 import { IsArray, IsEnum, IsString } from 'class-validator'
-import { WorkbenchRole } from 'generated/prisma'
 
 export class InviteUsersDto {
 	@ApiProperty()

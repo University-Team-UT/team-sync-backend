@@ -4,8 +4,8 @@ import {
 	UnauthorizedException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import { User } from '@prisma/client'
 import { compare, genSalt, hash } from 'bcryptjs'
-import { User } from 'generated/prisma'
 import { DatabaseService } from 'src/core/database/database.service'
 import { issueAccessToken } from 'src/shared/utils/issue-access-token.util'
 

@@ -7,7 +7,7 @@ import {
 	Patch,
 	Post
 } from '@nestjs/common'
-import { Priority, TaskStatus } from 'generated/prisma'
+import { Priority, TaskStatus } from '@prisma/client'
 import { Auth } from 'src/shared/decorators/auth.decorator'
 
 import { TASK_ROUTES } from './config/task.routes'

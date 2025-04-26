@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Priority, Prisma, TaskStatus } from 'generated/prisma'
+import { Priority, Prisma, TaskStatus } from '@prisma/client'
 import { DatabaseService } from 'src/core/database/database.service'
 
 import {

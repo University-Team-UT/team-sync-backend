@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Priority, TaskStatus } from '@prisma/client'
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator'
-import { Priority, TaskStatus } from 'generated/prisma'
 
 export class CreateTaskDto {
 	@ApiProperty()
