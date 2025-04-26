@@ -17,6 +17,12 @@ export class WorkbenchService {
 			include: {
 				_count: {
 					select: { members: true }
+				},
+				members: {
+					where: { userId },
+					select: {
+						role: true
+					}
 				}
 			}
 		})
