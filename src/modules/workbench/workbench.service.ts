@@ -27,7 +27,12 @@ export class WorkbenchService {
 			}
 		})
 
-		return workbenches
+		const result = workbenches.map(wb => ({
+			...wb,
+			membersCount: wb._count.members,
+			userRole: wb.members[0]?.role
+		}))
+		return result
 	}
 	async createWorkbench(dto: CreateWorkbenchDto, userId: string) {
 		const user = await this.database.user.findUnique({
