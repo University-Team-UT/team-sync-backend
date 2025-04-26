@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, HttpCode, Patch } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Patch,
+	Query
+} from '@nestjs/common'
 import { Auth } from 'src/shared/decorators/auth.decorator'
 import { CurrentUser } from 'src/shared/decorators/current.user.decorator'
 
@@ -30,8 +38,8 @@ export class AccountController {
 	@Delete(ACCOUNT_ROUTES.DELETE_ACCOUNT)
 	async deleteAccount(
 		@CurrentUser('id') id: string,
-		@Body() dto: ChangePasswordDto
+		@Query('password') password: string
 	) {
-		return this.accountService.deleteAccount(id, dto.password)
+		return this.accountService.deleteAccount(id, password)
 	}
 }

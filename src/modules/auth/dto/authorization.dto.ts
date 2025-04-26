@@ -6,7 +6,7 @@ export class RegisterDto {
 	@ApiProperty()
 	email: string
 
-	@MinLength(8, {
+	@MinLength(4, {
 		message: 'Пароль должен быть не меньше 8 символов'
 	})
 	@IsString()
@@ -22,7 +22,7 @@ export class LoginDto {
 	@ApiProperty()
 	email: string
 
-	@MinLength(8, {
+	@MinLength(4, {
 		message: 'Пароль должен быть не меньше 8 символов'
 	})
 	@ApiProperty()
@@ -35,7 +35,7 @@ export class ChangePasswordDto {
 	@IsString()
 	oldPassword: string
 
-	@MinLength(8, {
+	@MinLength(4, {
 		message: 'Пароль должен быть не меньше 8 символов'
 	})
 	@ApiProperty()
