@@ -13,6 +13,11 @@ export class WorkbenchService {
 				members: {
 					some: { userId }
 				}
+			},
+			include: {
+				_count: {
+					select: { members: true }
+				}
 			}
 		})
 

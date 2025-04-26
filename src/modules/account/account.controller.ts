@@ -12,7 +12,7 @@ import { CurrentUser } from 'src/shared/decorators/current.user.decorator'
 
 import { AccountService } from './account.service'
 import { ACCOUNT_ROUTES } from './config/account.routes'
-import { ChangePasswordDto, UpdateAccountDto } from './dto/account,dto'
+import { UpdateAccountDto } from './dto/account,dto'
 
 @Controller(ACCOUNT_ROUTES.INDEX)
 export class AccountController {
