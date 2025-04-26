@@ -20,6 +20,17 @@ export class MembersService {
 		this.allowedOrigin = this.configService.getOrThrow<string>('ALLOWED_ORIGIN')
 	}
 
+	async getWorkbenchMembers(workbenchId: string) {
+		return this.database.workbenchMember.findMany({
+			where: {
+				workbenchId
+			},
+			include: {
+				user: true
+			}
+		})
+	}
+
 	async getInviteLink(inviterId: string, workbenchId: string) {
 		const workbench = await this.database.workbench.findUnique({
 			where: {
