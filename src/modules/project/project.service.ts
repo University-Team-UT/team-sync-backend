@@ -9,6 +9,9 @@ export class ProjectService {
 		return this.database.project.findMany({
 			where: {
 				workbenchId
+			},
+			orderBy: {
+				createdAt: 'asc'
 			}
 		})
 	}
