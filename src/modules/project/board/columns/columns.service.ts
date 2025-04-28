@@ -85,7 +85,8 @@ export class ColumnsService {
 			data: {
 				boardId,
 				title: dto.title,
-				position: newPosition
+				position: newPosition,
+				color: dto.color
 			}
 		})
 	}
