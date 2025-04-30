@@ -130,4 +130,23 @@ export class TaskController {
 	async deleteTask(@Param('taskId') taskId: string) {
 		return this.taskService.deleteTask(taskId)
 	}
+	@Patch('toggle-subtask/:subtaskId')
+	@Auth()
+	@HttpCode(200)
+	async toggleSubtask(
+		@Param('subtaskId') taskId: string,
+		@Body() { isCompleted }: { isCompleted: boolean }
+	) {
+		return this.taskService.toggleCompleteSubtask(taskId, isCompleted)
+	}
+
+	@Patch('update-task/:taskId')
+	@Auth()
+	@HttpCode(200)
+	async updateTask(
+		@Param('taskId') taskId: string,
+		@Body() dto: UpdateTaskDto
+	) {
+		return this.taskService.updateTask(taskId, dto)
+	}
 }

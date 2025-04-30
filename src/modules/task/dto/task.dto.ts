@@ -32,10 +32,8 @@ export class CreateTaskDto {
 	workbenchId?: string
 }
 export class UpdateTaskDto {
-	@ApiProperty({ required: false })
 	@IsString()
-	@IsOptional()
-	columnId?: string
+	columnId: string
 
 	@ApiProperty({ required: false })
 	@IsString()
@@ -52,20 +50,16 @@ export class UpdateTaskDto {
 	@IsOptional()
 	executorId?: string
 
-	@ApiProperty({ required: false })
 	@IsString()
-	@IsOptional()
-	projectId?: string
+	projectId: string
 
 	@ApiProperty({ required: false })
 	@IsString()
 	@IsOptional()
 	deadline?: string
 
-	@ApiProperty({ required: false })
 	@IsNumber()
-	@IsOptional()
-	position?: string
+	position: number
 
 	@ApiProperty({ required: false })
 	@IsEnum(TaskStatus)

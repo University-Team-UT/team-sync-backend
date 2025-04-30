@@ -5,7 +5,8 @@ import { DatabaseService } from 'src/core/database/database.service'
 import {
 	CreateSubtaskDto,
 	CreateTaskDto,
-	UpdateSubtaskDto
+	UpdateSubtaskDto,
+	UpdateTaskDto
 } from './dto/task.dto'
 
 @Injectable()
@@ -201,6 +202,15 @@ export class TaskService {
 			where: { id: subtaskId },
 			data: {
 				isCompleted: { set: !isCompleted }
+			}
+		})
+	}
+
+	async updateTask(taskId: string, dto: UpdateTaskDto) {
+		return this.database.task.update({
+			where: { id: taskId },
+			data: {
+				...dto
 			}
 		})
 	}
