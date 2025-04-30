@@ -195,4 +195,13 @@ export class TaskService {
 			}
 		})
 	}
+
+	async toggleCompleteSubtask(subtaskId: string, isCompleted: boolean) {
+		return this.database.subtask.update({
+			where: { id: subtaskId },
+			data: {
+				isCompleted: { set: !isCompleted }
+			}
+		})
+	}
 }

@@ -21,7 +21,16 @@ export class ColumnsService {
 			include: {
 				tasks: {
 					include: {
-						subtasks: true
+						subtasks: true,
+						executor: {
+							include: {
+								user: {
+									select: {
+										displayName: true
+									}
+								}
+							}
+						}
 					},
 					orderBy: {
 						position: 'asc'
