@@ -201,7 +201,7 @@ export class TaskService {
 		return this.database.subtask.update({
 			where: { id: subtaskId },
 			data: {
-				isCompleted: { set: !isCompleted }
+				isCompleted: { set: isCompleted }
 			}
 		})
 	}
