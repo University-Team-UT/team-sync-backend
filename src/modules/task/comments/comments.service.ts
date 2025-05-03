@@ -11,6 +11,9 @@ export class CommentsService {
 		return this.database.comment.findMany({
 			where: {
 				taskId
+			},
+			include: {
+				author: true
 			}
 		})
 	}
