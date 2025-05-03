@@ -49,8 +49,7 @@ model Workbench {
   members  WorkbenchMember[]
   projects Project[]
   tags     Tag[]
-    tasks Task[]
-
+  tasks    Task[]
 
   @@map("workbenches")
 }
@@ -100,8 +99,8 @@ model Task {
   columnId      String?          @map("column_id")
   executor      WorkbenchMember? @relation(fields: [executorId, workbenchId], references: [userId, workbenchId], onDelete: Cascade)
   executorId    String?          @map("executor_id")
-  workbench     Workbench       @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
-  workbenchId   String        @map("project_id")
+  workbench     Workbench        @relation(fields: [workbenchId], references: [id], onDelete: Cascade)
+  workbenchId   String           @map("workbench_id")
   deadline      DateTime?
   title         String
   priority      Priority?
