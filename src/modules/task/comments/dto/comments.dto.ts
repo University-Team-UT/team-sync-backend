@@ -9,10 +9,6 @@ export class CreateCommentDto {
 	@ApiProperty()
 	@IsString()
 	authorId: string
-
-	@ApiProperty()
-	@IsString()
-	taskId: string
 }
 export class EditCommentDto {
 	@ApiProperty()
@@ -24,9 +20,4 @@ export class EditCommentDto {
 	@IsString()
 	@IsOptional()
 	authorId?: string
-
-	@ApiProperty()
-	@IsString()
-	@IsOptional()
-	taskId?: string
 }
