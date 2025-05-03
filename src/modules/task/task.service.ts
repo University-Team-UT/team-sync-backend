@@ -36,6 +36,9 @@ export class TaskService {
 			const data: Prisma.TaskCreateInput = {
 				title: dto.title,
 				priority: dto.priority,
+				workbench: {
+					connect: { id: dto.workbenchId }
+				},
 				column: { connect: { id: dto.columnId } },
 				...(dto.executorId && dto.workbenchId
 					? {
@@ -85,12 +88,22 @@ export class TaskService {
 	}
 
 	async setExecutor(taskId: string, executorId: string) {
+		const task = await this.database.task.findUniqueOrThrow({
+			where: { id: taskId }
+		})
 		return this.database.task.update({
 			where: {
 				id: taskId
 			},
 			data: {
-				executorId
+				executor: {
+					connect: {
+						userId_workbenchId: {
+							userId: executorId,
+							workbenchId: task.workbenchId
+						}
+					}
+				}
 			}
 		})
 	}
