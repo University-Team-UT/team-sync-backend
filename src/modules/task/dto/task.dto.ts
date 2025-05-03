@@ -56,8 +56,10 @@ export class UpdateTaskDto {
 	@IsOptional()
 	deadline?: string
 
+	@ApiProperty({ required: false })
 	@IsNumber()
-	position: number
+	@IsOptional()
+	position?: number
 
 	@ApiProperty({ required: false })
 	@IsEnum(TaskStatus)
