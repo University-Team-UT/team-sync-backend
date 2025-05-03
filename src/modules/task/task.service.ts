@@ -97,12 +97,16 @@ export class TaskService {
 			},
 			data: {
 				executor: {
-					connect: {
-						userId_workbenchId: {
-							userId: executorId,
-							workbenchId: task.workbenchId
-						}
-					}
+					...(executorId
+						? {
+								connect: {
+									userId_workbenchId: {
+										userId: executorId,
+										workbenchId: task.workbenchId
+									}
+								}
+							}
+						: { disconnect: true })
 				}
 			}
 		})
