@@ -91,25 +91,35 @@ export class TaskService {
 		const task = await this.database.task.findUniqueOrThrow({
 			where: { id: taskId }
 		})
-		return this.database.task.update({
-			where: {
-				id: taskId
-			},
-			data: {
-				executor: {
-					...(executorId !== null
-						? {
-								connect: {
-									userId_workbenchId: {
-										userId: executorId,
-										workbenchId: task.workbenchId
-									}
-								}
-							}
-						: { disconnect: true })
+
+		if (executorId === null) {
+			return this.database.task.update({
+				where: {
+					id: taskId
+				},
+				data: {
+					executor: {
+						disconnect: true
+					}
 				}
-			}
-		})
+			})
+		} else {
+			return this.database.task.update({
+				where: {
+					id: taskId
+				},
+				data: {
+					executor: {
+						connect: {
+							userId_workbenchId: {
+								userId: executorId,
+								workbenchId: task.workbenchId
+							}
+						}
+					}
+				}
+			})
+		}
 	}
 
 	async movePosition(taskId: string, newPosition: number) {
