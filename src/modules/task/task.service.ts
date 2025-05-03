@@ -87,7 +87,7 @@ export class TaskService {
 		})
 	}
 
-	async setExecutor(taskId: string, executorId: string) {
+	async setExecutor(taskId: string, executorId: string | null) {
 		const task = await this.database.task.findUniqueOrThrow({
 			where: { id: taskId }
 		})

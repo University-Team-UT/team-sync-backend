@@ -35,9 +35,9 @@ export class TaskController {
 	@HttpCode(200)
 	async setExecutor(
 		@Param('taskId') taskId: string,
-		@Body() { executorId }: Pick<UpdateTaskDto, 'executorId'>
+		@Body() { executorId }: { executorId: string | null }
 	) {
-		return this.taskService.setExecutor(taskId, executorId!)
+		return this.taskService.setExecutor(taskId, executorId)
 	}
 
 	@Patch(TASK_ROUTES.MOVE_POSITION)
