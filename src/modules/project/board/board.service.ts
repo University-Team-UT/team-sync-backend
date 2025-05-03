@@ -24,11 +24,7 @@ export class BoardService {
 						tasks: {
 							include: {
 								subtasks: true,
-								column: {
-									select: {
-										title: true
-									}
-								}
+								column: true
 							}
 						}
 					}
