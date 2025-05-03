@@ -13,7 +13,11 @@ export class CommentsService {
 				taskId
 			},
 			include: {
-				author: true
+				author: {
+					include: {
+						user: true
+					}
+				}
 			}
 		})
 	}
