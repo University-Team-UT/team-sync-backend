@@ -20,12 +20,6 @@ export class CreateTaskDto {
 	@IsString()
 	@IsOptional()
 	executorId?: string
-
-	@ApiProperty({ required: false })
-	@IsString()
-	@IsOptional()
-	projectId?: string
-
 	@ApiProperty({ required: false })
 	@IsString()
 	@IsOptional()
@@ -33,7 +27,9 @@ export class CreateTaskDto {
 }
 export class UpdateTaskDto {
 	@IsString()
-	columnId: string
+	@ApiProperty({ required: false })
+	@IsOptional()
+	columnId?: string
 
 	@ApiProperty({ required: false })
 	@IsString()
@@ -50,8 +46,10 @@ export class UpdateTaskDto {
 	@IsOptional()
 	executorId?: string
 
+	@ApiProperty({ required: false })
 	@IsString()
-	projectId: string
+	@IsOptional()
+	workbenchId?: string
 
 	@ApiProperty({ required: false })
 	@IsString()
