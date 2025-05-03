@@ -97,7 +97,7 @@ export class TaskService {
 			},
 			data: {
 				executor: {
-					...(executorId
+					...(executorId !== null
 						? {
 								connect: {
 									userId_workbenchId: {
