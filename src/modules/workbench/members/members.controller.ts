@@ -80,7 +80,7 @@ export class MembersController {
 	@HttpCode(200)
 	acceptInvite(
 		@Param('memberId') memberId: string,
-		@Query('workbenchId') workbenchId: string
+		@Body() { workbenchId }: { workbenchId: string }
 	) {
 		return this.membersService.acceptInvite(memberId, workbenchId)
 	}
