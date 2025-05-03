@@ -177,7 +177,7 @@ export class MembersService {
 			user
 		}
 	}
-	async acceptInvite(workbenchId: string, userId: string) {
+	async acceptInvite(userId: string, workbenchId: string) {
 		const workbench = await this.database.workbench.findUnique({
 			where: {
 				id: workbenchId
