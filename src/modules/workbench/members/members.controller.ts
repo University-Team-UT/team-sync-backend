@@ -61,7 +61,7 @@ export class MembersController {
 		@Param('memberId') memberId: string,
 		@Query('workbenchId') workbenchId: string
 	) {
-		return this.membersService.excludeMember(memberId, workbenchId)
+		return this.membersService.excludeMember(workbenchId, memberId)
 	}
 
 	@Get(MEMBERS_ROUTES.GET_INVITE_INFO)

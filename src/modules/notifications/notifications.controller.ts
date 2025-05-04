@@ -7,6 +7,7 @@ import {
 	Patch,
 	Post
 } from '@nestjs/common'
+import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator'
 import { Auth } from 'src/shared/decorators/auth.decorator'
 import { CurrentUser } from 'src/shared/decorators/current.user.decorator'
@@ -23,14 +24,17 @@ export const NOTIFICATIONS_ROUTES = {
 
 export class SendNotificationDto {
 	@IsNotEmpty()
+	@ApiProperty()
 	@IsString()
 	title: string
 
 	@IsNotEmpty()
+	@ApiProperty()
 	@IsString()
 	content: string
 
 	@IsOptional()
+	@ApiProperty()
 	@IsUUID()
 	taskId?: string
 }
