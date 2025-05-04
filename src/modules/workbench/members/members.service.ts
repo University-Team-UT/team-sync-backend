@@ -1,9 +1,11 @@
 import {
+	ForbiddenException,
 	Injectable,
 	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { WorkbenchRole } from '@prisma/client'
 import { DatabaseService } from 'src/core/database/database.service'
 import { NotificationsService } from 'src/modules/notifications/notifications.service'
 
@@ -117,37 +119,68 @@ export class MembersService {
 			}
 		})
 	}
-	async excludeMember(workbenchId: string, memberId: string) {
+	async excludeMember(
+		workbenchId: string,
+		memberId: string,
+		callerUserId: string
+	) {
 		const workbench = await this.database.workbench.findUnique({
-			where: {
-				id: workbenchId
-			},
+			where: { id: workbenchId },
 			include: {
 				members: {
 					where: {
-						userId: memberId
+						userId: { in: [memberId, callerUserId] }
 					}
 				}
 			}
 		})
-		if (!workbench)
+
+		if (!workbench) {
 			throw new NotFoundException('Рабочее пространство не найдено')
+		}
 
-		if (workbench.members[0].role === 'ADMIN')
-			throw new UnauthorizedException('Пользователь является администратором')
+		const callerMembership = workbench.members.find(
+			m => m.userId === callerUserId
+		)
+		const targetMembership = workbench.members.find(m => m.userId === memberId)
 
-		await this.database.workbench.update({
+		if (!callerMembership) {
+			throw new ForbiddenException(
+				'Вы не являетесь участником этого рабочего пространства'
+			)
+		}
+
+		if (!targetMembership) {
+			throw new NotFoundException(
+				'Указанный пользователь не найден в этом рабочем пространстве'
+			)
+		}
+
+		if (callerUserId === memberId) {
+			if (targetMembership.role === WorkbenchRole.ADMIN) {
+				throw new ForbiddenException(
+					'Администратор не может исключить сам себя этим методом.'
+				)
+			}
+		} else {
+			if (callerMembership.role !== WorkbenchRole.ADMIN) {
+				throw new ForbiddenException(
+					'У вас нет прав на исключение участников из этого рабочего пространства'
+				)
+			}
+
+			if (targetMembership.role === WorkbenchRole.ADMIN) {
+				throw new ForbiddenException(
+					'Нельзя исключить администратора рабочего пространства'
+				)
+			}
+		}
+
+		await this.database.workbenchMember.delete({
 			where: {
-				id: workbenchId
-			},
-			data: {
-				members: {
-					delete: {
-						userId_workbenchId: {
-							userId: memberId,
-							workbenchId
-						}
-					}
+				userId_workbenchId: {
+					userId: memberId,
+					workbenchId: workbenchId
 				}
 			}
 		})

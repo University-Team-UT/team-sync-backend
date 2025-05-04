@@ -10,6 +10,7 @@ import {
 	Query
 } from '@nestjs/common'
 import { Auth } from 'src/shared/decorators/auth.decorator'
+import { CurrentUser } from 'src/shared/decorators/current.user.decorator'
 
 import { MEMBERS_ROUTES } from './config/members.routes'
 import { EditMemberDto, InviteUsersDto } from './dto/members.dto'
@@ -59,9 +60,10 @@ export class MembersController {
 	@HttpCode(200)
 	excludeMember(
 		@Param('memberId') memberId: string,
-		@Query('workbenchId') workbenchId: string
+		@Query('workbenchId') workbenchId: string,
+		@CurrentUser('id') userId: string
 	) {
-		return this.membersService.excludeMember(workbenchId, memberId)
+		return this.membersService.excludeMember(workbenchId, memberId, userId)
 	}
 
 	@Get(MEMBERS_ROUTES.GET_INVITE_INFO)
