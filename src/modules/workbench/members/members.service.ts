@@ -79,7 +79,7 @@ export class MembersService {
 				this.notificationsService.sendNotification(
 					user.id,
 					`Вы были приглашены в рабочее пространство ${workbench?.title} \n
-					ссылка - <a href="${this.generateInviteLink(dto.workbenchId, dto.inviterId)}">приглашение</a>`,
+					ссылка -  ${this.generateInviteLink(dto.workbenchId, dto.inviterId)}`,
 					'Новое приглашение'
 				)
 			)
