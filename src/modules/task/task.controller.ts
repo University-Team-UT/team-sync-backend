@@ -2,6 +2,7 @@ import {
 	Body,
 	Controller,
 	Delete,
+	Get,
 	HttpCode,
 	Param,
 	Patch,
@@ -148,5 +149,17 @@ export class TaskController {
 		@Body() dto: UpdateTaskDto
 	) {
 		return this.taskService.updateTask(taskId, dto)
+	}
+	@Get('get-by-workbenchId/:workbenchId')
+	@Auth()
+	@HttpCode(200)
+	async getByWorkbenchId(@Param('workbenchId') workbenchId: string) {
+		return this.taskService.getTasksByWorkbenchId(workbenchId)
+	}
+	@Get('get-by-executorId/:executorId')
+	@Auth()
+	@HttpCode(200)
+	async getByExecutorId(@Param('executorId') executorId: string) {
+		return this.taskService.getTasksByExecutorId(executorId)
 	}
 }
