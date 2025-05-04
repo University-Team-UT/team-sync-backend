@@ -17,6 +17,10 @@ export class InviteUsersDto {
 	@IsString()
 	workbenchId: string
 
+	@ApiProperty()
+	@IsString()
+	inviterId: string
+
 	@ApiProperty({ type: [Invite] })
 	@IsArray()
 	emails: Invite[]

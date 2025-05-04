@@ -78,7 +78,8 @@ export class MembersService {
 			users.map(user =>
 				this.notificationsService.sendNotification(
 					user.id,
-					`Вы были приглашены в рабочее пространство ${workbench?.title}`,
+					`Вы были приглашены в рабочее пространство ${workbench?.title} \n
+					ссылка -  ${this.generateInviteLink(dto.workbenchId, dto.inviterId)}`,
 					'Новое приглашение'
 				)
 			)
