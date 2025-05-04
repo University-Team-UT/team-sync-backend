@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AccountModule } from 'src/modules/account/account.module'
 import { AuthorizationModule } from 'src/modules/auth/authorization.module'
 import { MediaModule } from 'src/modules/media/media.module'
+import { NotificationsModule } from 'src/modules/notifications/notifications.module'
 import { BoardModule } from 'src/modules/project/board/board.module'
 import { ColumnsModule } from 'src/modules/project/board/columns/columns.module'
 import { ProjectModule } from 'src/modules/project/project.module'
@@ -31,7 +32,8 @@ import { DatabaseModule } from './database/database.module'
 		MediaModule,
 		ColumnsModule,
 		TaskModule,
-		CommentsModule
+		CommentsModule,
+		NotificationsModule
 	]
 })
 export class CoreModule {}
