@@ -22,6 +22,7 @@ export class ColumnsService {
 				tasks: {
 					include: {
 						subtasks: true,
+						tags: true,
 						executor: {
 							include: {
 								user: {
